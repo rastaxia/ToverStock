@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 
 
 @Component({
@@ -9,8 +9,11 @@ import { filter } from 'rxjs';
   styleUrls: ['app.component.scss'],
   standalone: false,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  hideMenu = false;
   pageTitle: string = '';
+
   constructor(private router: Router, private route: ActivatedRoute) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -18,6 +21,15 @@ export class AppComponent {
       // Get the route's title from the activated route
       const title = this.route.snapshot.firstChild?.data['title'] || 'Default Title';
       this.pageTitle = title;
+    });
+  }
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.route)
+    ).subscribe((event) => {
+      this.hideMenu = this.route.snapshot.firstChild?.data['hideMenu'] || false;
     });
   }
 }

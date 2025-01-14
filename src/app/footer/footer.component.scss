@@ -1,5 +1,4 @@
 ion-icon{
-    color: white;
     font-size: 48px;
 }
 
@@ -8,16 +7,12 @@ ion-buttons{
     justify-content: space-around;
 }
 
-ion-footer{
-    --background: #062160;
-  }
 
   ion-button {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0; /* Verwijder eventuele padding die de lay-out kan beïnvloeden */
   }
   
   .button-container {
@@ -28,7 +23,6 @@ ion-footer{
   }
   
   .button-label {
-    color: white;
     font-size: 14px;
     margin-top: 4px;
     text-align: center;

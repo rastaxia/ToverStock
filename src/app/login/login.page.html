@@ -1,5 +1,35 @@
-<ion-content class="ion-padding" >
-  <main>
-    <h1>Dit is een test</h1>
-  </main>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <!-- logo -->
+    <ion-row class="ion-justify-content-center ion-margin-bottom">
+      <img src="/assets/tvl.webp" alt="">
+    </ion-row>
+
+    <!-- username -->
+    <ion-row class="ion-justify-content-center ion-margin-bottom">
+      <ion-item>
+        <ion-label position="floating">Gebruikersnaam</ion-label>
+        <ion-input type="text">
+          <ion-icon name="person" slot="end"></ion-icon>
+        </ion-input>
+        
+      </ion-item>
+    </ion-row>
+    <!-- password -->
+    <ion-row class="ion-justify-content-center ion-margin-bottom">
+      <ion-item>
+        <ion-label position="floating">Wachtwoord</ion-label>
+        <ion-input type="password">
+          <ion-icon name="lock-closed" slot="end"></ion-icon>
+        </ion-input>
+      </ion-item>
+    </ion-row>
+
+    <!-- login button -->
+    <ion-row class="ion-justify-content-center">
+      <ion-button shape="round" size="large" [routerLink]="['/producten']">
+        Login
+        </ion-button>
+    </ion-row>
+  </ion-grid>
 </ion-content>

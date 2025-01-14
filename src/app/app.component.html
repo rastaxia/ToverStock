@@ -1,5 +1,5 @@
 <ion-app>
-    <app-header [pageTitle]="pageTitle"></app-header>
+    <app-header *ngIf="!hideMenu" [pageTitle]="pageTitle"></app-header>
       <ion-router-outlet></ion-router-outlet>
-    <app-footer></app-footer>
+    <app-footer *ngIf="!hideMenu"></app-footer>
 </ion-app>

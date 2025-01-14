@@ -1,0 +1,15 @@
+// spacing between the rows
+ion-row {
+    margin-bottom: 20px; 
+  }
+  
+// spacing between logo and first object
+  ion-row:first-child {
+    margin-bottom: 150px; 
+  }
+
+// spacing between button and last object
+  ion-row:last-child {
+    margin-top: 120px; 
+  }
+  

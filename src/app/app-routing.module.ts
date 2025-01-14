@@ -10,9 +10,9 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
-    data: { title: 'Home' }
+    data: { title: 'Login', hideMenu: true }
   },
   {
     path: 'producten',
@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
-    data: { title: 'Login' }
+    data: { title: 'Login', hideMenu: true }
   },
   {
     path: 'telling',

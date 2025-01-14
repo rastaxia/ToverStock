@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { LocatiesComponent } from './locaties/locaties.component';
-import { ProductenComponent } from './producten/producten.component';
-import { TellingComponent } from './telling/telling.component';
+
 
 const routes: Routes = [
   {
@@ -17,19 +15,24 @@ const routes: Routes = [
     data: { title: 'Home' }
   },
   {
-    path: 'locaties',
-    component: LocatiesComponent,
-    data: { title: 'Locaties' }
+    path: 'producten',
+    loadChildren: () => import('./producten/producten.module').then( m => m.ProductenPageModule),
+    data : { title: 'Producten' }
   },
   {
-    path: 'producten',
-    component: ProductenComponent,
-    data: { title: 'Producten' }
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    data: { title: 'Login' }
   },
   {
     path: 'telling',
-    component: TellingComponent,
+    loadChildren: () => import('./telling/telling.module').then( m => m.TellingPageModule),
     data: { title: 'Telling' }
+  },
+  {
+    path: 'locaties',
+    loadChildren: () => import('./locaties/locaties.module').then( m => m.LocatiesPageModule),
+    data: { title: 'Locaties' }
   },
 ];
 

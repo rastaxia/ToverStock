@@ -4,8 +4,8 @@
       <!-- goes to home -->
       <ion-button [routerLink]="['/home']">
         <div class="button-container">
-        <ion-icon name="home-outline"></ion-icon>
-        <span class="button-label">Home</span>
+          <ion-icon name="home-outline"></ion-icon>
+          <span class="button-label">Home</span>
         </div>
       </ion-button>
       <!-- goes to locations -->
@@ -13,7 +13,7 @@
         <div class="button-container">
           <ion-icon name="storefront-outline"></ion-icon>
           <span class="button-label">Locaties</span>
-          </div>
+        </div>
       </ion-button>
       <!-- action buttons -->
       <ion-button>
@@ -24,15 +24,17 @@
         <div class="button-container" [routerLink]="['/producten']">
           <ion-icon name="cube-outline"></ion-icon>
           <span class="button-label">Producten</span>
-          </div>
+        </div>
       </ion-button>
       <!-- daily count -->
       <ion-button>
         <div class="button-container" [routerLink]="['/telling']">
-          <ion-icon name="clipboard-outline"></ion-icon>
-          <span class="button-label">Telling</span>
+          <div class="icon-container">
+            <ion-icon name="clipboard-outline"></ion-icon>
+            <ion-badge color="danger" class="badge">1</ion-badge>
           </div>
-       
+          <span class="button-label">Telling</span>
+        </div>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

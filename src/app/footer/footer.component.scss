@@ -1,29 +1,47 @@
-ion-icon{
-    font-size: 48px;
+ion-icon {
+  font-size: 48px;
 }
 
-ion-buttons{
-    color: white;
-    justify-content: space-around;
+ion-buttons {
+  color: white;
+  justify-content: space-around;
 }
 
+ion-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  ion-button {
+.button-label {
+  font-size: 14px;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .icon-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  ion-badge.badge {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 12px; /* Verklein de badge */
+    width: 18px; /* Maak de badge rond */
+    height: 18px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
   }
-  
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .button-label {
-    font-size: 14px;
-    margin-top: 4px;
-    text-align: center;
-  }
+}

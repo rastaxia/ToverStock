@@ -34,6 +34,11 @@ const routes: Routes = [
     loadChildren: () => import('./locations/locations.module').then( m => m.LocationsModule),
     data: { title: 'locations' }
   },
+  {
+    path: 'actions',
+    loadChildren: () => import('./actions/actions.module').then( m => m.ActionsPageModule),
+    data: { title: 'Actions' }
+  },
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 
 import { Productspage } from './products.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

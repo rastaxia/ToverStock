@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LocatiesPageRoutingModule } from './locaties-routing.module';
+import { CountRoutingModule } from './count-routing.module';
 
-import { LocatiesPage } from './locaties.page';
+import { CountPage } from './count.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LocatiesPageRoutingModule
+    CountRoutingModule
   ],
-  declarations: [LocatiesPage]
+  declarations: [CountPage]
 })
-export class LocatiesPageModule {}
+export class CountModule {}

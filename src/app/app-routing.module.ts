@@ -15,9 +15,9 @@ const routes: Routes = [
     data: { title: 'Login', hideMenu: true }
   },
   {
-    path: 'producten',
-    loadChildren: () => import('./producten/producten.module').then( m => m.ProductenPageModule),
-    data : { title: 'Producten' }
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then( m => m.ProductsModule),
+    data : { title: 'Products' }
   },
   {
     path: 'login',
@@ -25,14 +25,14 @@ const routes: Routes = [
     data: { title: 'Login', hideMenu: true }
   },
   {
-    path: 'telling',
-    loadChildren: () => import('./telling/telling.module').then( m => m.TellingPageModule),
-    data: { title: 'Telling' }
+    path: 'count',
+    loadChildren: () => import('./count/count.module').then( m => m.CountModule),
+    data: { title: 'Count' }
   },
   {
-    path: 'locaties',
-    loadChildren: () => import('./locaties/locaties.module').then( m => m.LocatiesPageModule),
-    data: { title: 'Locaties' }
+    path: 'locations',
+    loadChildren: () => import('./locations/locations.module').then( m => m.LocationsModule),
+    data: { title: 'locations' }
   },
 ];
 

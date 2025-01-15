@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TellingPageRoutingModule } from './telling-routing.module';
+import { LocationsRoutingModule } from './locations-routing.module';
 
-import { TellingPage } from './telling.page';
+import { LocationsPage } from './locations.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TellingPageRoutingModule
+    LocationsRoutingModule
   ],
-  declarations: [TellingPage]
+  declarations: [LocationsPage]
 })
-export class TellingPageModule {}
+export class LocationsModule {}

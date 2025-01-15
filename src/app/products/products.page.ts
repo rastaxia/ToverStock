@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-products',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   standalone: false
 })
 export class Productspage implements OnInit {
+  @ViewChild(IonModal) modal!: IonModal;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  close(){
+    this.modal.dismiss();
+  }
 }

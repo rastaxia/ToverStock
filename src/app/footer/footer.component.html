@@ -1,41 +1,37 @@
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons>
-      <!-- goes to home -->
-      <ion-button [routerLink]="['/home']">
-        <div class="button-container">
-          <ion-icon name="home-outline"></ion-icon>
-          <span class="button-label">Home</span>
-        </div>
-      </ion-button>
-      <!-- goes to locations -->
-      <ion-button [routerLink]="['/locations']">
-        <div class="button-container">
-          <ion-icon name="storefront-outline"></ion-icon>
-          <span class="button-label">Locaties</span>
-        </div>
-      </ion-button>
-      <!-- action buttons -->
-      <ion-button [routerLink]="['/actions']">
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-button>
-      <!-- product list -->
-      <ion-button>
-        <div class="button-container" [routerLink]="['/products']">
-          <ion-icon name="cube-outline"></ion-icon>
-          <span class="button-label">Producten</span>
-        </div>
-      </ion-button>
-      <!-- daily count -->
-      <ion-button>
-        <div class="button-container" [routerLink]="['/count']">
-          <div class="icon-container">
-            <ion-icon name="clipboard-outline"></ion-icon>
-            <ion-badge color="danger" class="badge">3</ion-badge>
-          </div>
-          <span class="button-label">Telling</span>
-        </div>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+<ion-tabs>
+  <ion-tab-bar slot="bottom" color="primary">
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="locations">
+      <ion-icon name="pie-chart"></ion-icon>
+      <ion-label>Locaties</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button class="ion-tab-button-placeholder"> </ion-tab-button>
+
+    <ion-tab-button tab="products">
+      <ion-icon name="swap-horizontal"></ion-icon>
+      <ion-label>Producten</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="count">
+      <ion-badge slot="end">22</ion-badge>
+      <ion-icon name="clipboard"></ion-icon>
+      <ion-label>Telling</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+  <ion-fab
+    class="ion-fab-custom"
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-tabs>

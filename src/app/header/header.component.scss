@@ -8,14 +8,10 @@ ion-toolbar {
   align-items: center;
 
   ion-button {
-    margin-right: 10px;
+    // margin-right: 10px;
     width: auto;
     --border-radius: 50%;
     --background-activated: #a9b0ad;
-  }
-
-  ion-icon {
-    color: black;
   }
 }
 

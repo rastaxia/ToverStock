@@ -33,35 +33,6 @@
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import "@ionic/angular/css/palettes/dark.system.css";
+@import "@ionic/angular/css/palettes/dark.class.css"; 
 
-// ion-toolbar {
-//   --background: #062160;
-//   height: 78px;
-// }
-
-// ion-content {
-//   --background: white;
-//   --color: black;
-// }
-
-ion-content::part(scroll) {
-  padding-top: 80px;
-}
-
-ion-toolbar {
-  height: 78px;
-}
-
-ion-button {
-  --background: #062160;
-
-  width: 215px;
-}
-
-
-
-ion-icon{
-  color: white;
-}

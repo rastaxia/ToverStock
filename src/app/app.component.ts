@@ -1,20 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  hideHeader = false;
 
   constructor(
-    private platform: Platform
+    private platform: Platform,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.initializeApp();
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        let currentRoute = this.activatedRoute.root;
+        while (currentRoute.firstChild) {
+          currentRoute = currentRoute.firstChild;
+        }
+        this.hideHeader = currentRoute.snapshot.data['hideHeader'] || false;
+      }
+    });
   }
 
   // Initialize app

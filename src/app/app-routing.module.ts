@@ -6,8 +6,9 @@ import { PublicGuard } from './guards/public.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'welcome',
-    pathMatch: 'full'
+    redirectTo: 'welcome', // TODO: Set this to ''
+    pathMatch: 'full',
+    data: { hideHeader: true },
   },
   {
     path: '',
@@ -18,11 +19,13 @@ const routes: Routes = [
     path: 'welcome',
     loadChildren: () => import('./pages/public/welcome/welcome.module').then(m => m.WelcomePageModule),
     // canActivate: [PublicGuard] // Prevent for signed in users
+    data: { hideHeader: true },
   },
   {
     path: 'signin',
     loadChildren: () => import('./pages/public/signin/signin.module').then(m => m.SigninPageModule),
     // canActivate: [PublicGuard] // Prevent for signed in users
+    data: { hideHeader: true },
   },
 ];
 @NgModule({

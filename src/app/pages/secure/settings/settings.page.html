@@ -1,7 +1,7 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Home" defaultHref="/home">
+      <ion-back-button text="Back" [routerLink]="['.']">
       </ion-back-button>
     </ion-buttons>
     <ion-title>
@@ -28,20 +28,20 @@
    
 
     <ion-list-header class="ion-list-header-small">
-      <ion-label>Synchronisation</ion-label>
+      <ion-label>Appearance</ion-label>
     </ion-list-header>
 
     <ion-list class="list-custom" lines="full">
       <ion-item detail="false">
-        <ion-icon slot="start" color="medium" name="scan"></ion-icon>
+        <ion-icon slot="start" color="medium" name="contrast"></ion-icon>
         <ion-label>
-          <h3>Smart sync</h3>
+          <h3>Dark Mode</h3>
         </ion-label>
-        <ion-toggle checked slot="end"></ion-toggle>
+        <ion-toggle slot="end"></ion-toggle>
       </ion-item>
     </ion-list>
 
-    <hr class="hr-medium">
+    <hr class="hr-large">
 
     <ion-list class="list-custom" lines="full" (click)="signOut()">
       <ion-item button detail=false>

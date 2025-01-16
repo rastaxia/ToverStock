@@ -56,10 +56,6 @@ export class SigninPage implements OnInit {
         spinner: 'crescent'
       });
       await loading.present();
-
-      // TODO: Add your sign in logic
-      // ...
-
       // Fake timeout
       setTimeout(async () => {
 

@@ -1,9 +1,15 @@
-  <ion-header id="main-content">
-    <ion-toolbar>
-      <ion-title>{{pageTitle}}</ion-title>
-          <ion-icon (click)="openMenu()" slot="icon-only" name="person-outline"></ion-icon>
-    </ion-toolbar>
-  </ion-header>
+<ion-header id="main-content">
+  <ion-toolbar>
+    <ion-title>
+      {{pageTitle}}
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="cog"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 
 <ion-menu side="end" contentId="main-content">

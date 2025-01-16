@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof NavigationEnd),
       map(() => this.route)
     ).subscribe((event) => {
+      // Get the route's hideMenu from the activated route defaulting to false
       this.hideMenu = this.route.snapshot.firstChild?.data['hideMenu'] || false;
     });
   }

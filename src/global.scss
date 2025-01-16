@@ -32,7 +32,22 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+// @import "@ionic/angular/css/palettes/dark.always.css"; 
 // @import "@ionic/angular/css/palettes/dark.system.css";
 @import "@ionic/angular/css/palettes/dark.class.css"; 
 
+ion-item{
+    --transition: none;
+}
+
+ion-content{
+    margin-top: 44px;
+}
+
+ion-tabs{
+    padding-top: 44px;
+}
+
+ion-toolbar {
+    --background: rgba(247,247,247);
+  }

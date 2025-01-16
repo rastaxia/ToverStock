@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
     data: { title: 'Home' }
   },
   {
@@ -16,27 +16,27 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    loadChildren: () => import('./products/products.module').then( m => m.ProductsModule),
+    loadChildren: () => import('./pages/products/products.module').then( m => m.ProductsModule),
     data : { title: 'Products' }
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
     data: { title: 'Login', hideMenu: true }
   },
   {
     path: 'count',
-    loadChildren: () => import('./count/count.module').then( m => m.CountModule),
+    loadChildren: () => import('./pages/count/count.module').then( m => m.CountModule),
     data: { title: 'Count' }
   },
   {
     path: 'locations',
-    loadChildren: () => import('./locations/locations.module').then( m => m.LocationsModule),
+    loadChildren: () => import('./pages/locations/locations.module').then( m => m.LocationsModule),
     data: { title: 'locations' }
   },
   {
     path: 'actions',
-    loadChildren: () => import('./actions/actions.module').then( m => m.ActionsPageModule),
+    loadChildren: () => import('./pages/actions/actions.module').then( m => m.ActionsPageModule),
     data: { title: 'Actions' }
   },
 ];

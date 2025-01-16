@@ -1,49 +1,33 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { AuthGuard } from './guards/auth.guard';
+import { PublicGuard } from './guards/public.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
-    data: { title: 'Home' }
+    path: '',
+    redirectTo: 'welcome',
+    pathMatch: 'full'
   },
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-    data: { title: 'Login', hideMenu: true }
+    loadChildren: () => import('./pages/secure/secure.module').then(m => m.SecureModule),
+    // canActivate: [AuthGuard] // Secure all child pages
   },
   {
-    path: 'products',
-    loadChildren: () => import('./pages/products/products.module').then( m => m.ProductsModule),
-    data : { title: 'Products' }
+    path: 'welcome',
+    loadChildren: () => import('./pages/public/welcome/welcome.module').then(m => m.WelcomePageModule),
+    // canActivate: [PublicGuard] // Prevent for signed in users
   },
   {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    data: { title: 'Login', hideMenu: true }
-  },
-  {
-    path: 'count',
-    loadChildren: () => import('./pages/count/count.module').then( m => m.CountModule),
-    data: { title: 'Count' }
-  },
-  {
-    path: 'locations',
-    loadChildren: () => import('./pages/locations/locations.module').then( m => m.LocationsModule),
-    data: { title: 'locations' }
-  },
-  {
-    path: 'actions',
-    loadChildren: () => import('./pages/actions/actions.module').then( m => m.ActionsPageModule),
-    data: { title: 'Actions' }
+    path: 'signin',
+    loadChildren: () => import('./pages/public/signin/signin.module').then(m => m.SigninPageModule),
+    // canActivate: [PublicGuard] // Prevent for signed in users
   },
 ];
-
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

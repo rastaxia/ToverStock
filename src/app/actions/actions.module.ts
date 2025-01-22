@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddCountPageRoutingModule } from './add-count-routing.module';
+import { ActionsPageRoutingModule } from './actions-routing.module';
 
-import { AddCountPage } from './add-count.page';
+import { ActionsPage } from './actions.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddCountPageRoutingModule
+    ActionsPageRoutingModule
   ],
-  declarations: [AddCountPage]
+  declarations: [ActionsPage]
 })
-export class AddCountPageModule {}
+export class ActionsPageModule {}

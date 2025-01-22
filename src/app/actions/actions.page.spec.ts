@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddFractionPage } from './add-fraction.page';
+import { ActionsPage } from './actions.page';
 
-describe('AddFractionPage', () => {
-  let component: AddFractionPage;
-  let fixture: ComponentFixture<AddFractionPage>;
+describe('ActionsPage', () => {
+  let component: ActionsPage;
+  let fixture: ComponentFixture<ActionsPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddFractionPage ],
+      declarations: [ ActionsPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddFractionPage);
+    fixture = TestBed.createComponent(ActionsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -27,6 +27,10 @@ const routes: Routes = [
     // canActivate: [PublicGuard] // Prevent for signed in users
     data: { hideHeader: true },
   },
+  {
+    path: 'actions',
+    loadChildren: () => import('./actions/actions.module').then( m => m.ActionsPageModule)
+  },
 ];
 @NgModule({
   imports: [

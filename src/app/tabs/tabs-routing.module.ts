@@ -17,15 +17,15 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'insights',
+        path: 'locations',
         loadChildren: () => import('../pages/secure/locations/locations.module').then(m => m.LocationsModule)
       },
       {
-        path: 'payments',
+        path: 'products',
         loadChildren: () => import('../pages/secure/products/products.module').then(m => m.ProductsModule)
       },
       {
-        path: 'cards',
+        path: 'count',
         loadChildren: () => import('../pages/secure/count/count.module').then(m => m.CountModule)
       },
     ]

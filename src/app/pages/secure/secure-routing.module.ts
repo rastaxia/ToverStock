@@ -10,6 +10,26 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule)
   },
+  {
+    path: 'add-count',
+    loadChildren: () => import('./actions/add-count/add-count.module').then( m => m.AddCountPageModule)
+  },
+  {
+    path: 'add-stock',
+    loadChildren: () => import('./actions/add-stock/add-stock.module').then( m => m.AddStockPageModule)
+  },
+  {
+    path: 'add-product',
+    loadChildren: () => import('./actions/add-product/add-product.module').then( m => m.AddProductPageModule)
+  },
+  {
+    path: 'add-fraction',
+    loadChildren: () => import('./actions/add-fraction/add-fraction.module').then( m => m.AddFractionPageModule)
+  },
+  {
+    path: 'change-location',
+    loadChildren: () => import('./actions/change-location/change-location.module').then( m => m.ChangeLocationPageModule)
+  },
 
 ];
 

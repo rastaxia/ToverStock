@@ -1,16 +1,5 @@
 <ion-app>
-  <ion-header collapse="fade" [translucent]="true" *ngIf="!hideHeader">
-    <ion-toolbar>
-      <ion-title>
-        Home
-      </ion-title>
-      <ion-buttons slot="primary">
-        <ion-button routerLink="/settings">
-          <ion-icon slot="icon-only" name="cog"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <app-header *ngIf="!hideHeader"></app-header>
   <ion-content>
     <ion-router-outlet
     ></ion-router-outlet>

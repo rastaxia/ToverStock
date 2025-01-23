@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'actions',
-    loadChildren: () => import('./actions/actions.module').then( m => m.ActionsPageModule)
+    loadChildren: () => import('./pages/secure/actions/actions.module').then( m => m.ActionsPageModule)
   },
 ];
 @NgModule({

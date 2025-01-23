@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { el } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root'
@@ -7,47 +10,58 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
+  isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  token = '';
+  refresh_token = '';
+
+  
   // Get user session
   async getSession() {
-
     // ...
     // put auth session here
     // ...
-
-    // Sample only - remove this after real authentication / session
-    let session = {
-      email: 'john.doe@mail.com'
-    }
-
     return false;
     // return session;
   }
 
-  // Sign in
-  async signIn(email: string, password: string) {
-
-    // Sample only - remove this after real authentication / session
-    let sample_user = {
-      email: email,
-      password: password
-    }
-
-    return sample_user;
+  // handles the token and refreshes it if needed
+  async refreshToken(){ 
+    // if refresh token is still valid make a new token
   }
 
-  // Sign up
-  async signUp(email: string, password: string) {
+  // checks if the token is still valid
+  async verifyToken() {
+    return this.http.post('https://portal.toverland.nl/auth/jwt/verify/', { token: this.token }, { observe: 'response' }).toPromise().then((res: any) => {
+      console.log(res);
+    });
+  }
 
-    // Sample only - remove this after real authentication / session
-    let sample_user = {
-      email: email,
-      password: password
-    }
 
-    return sample_user;
+  // Sign in
+  async signIn(username: string, password: string) {
+    return this.http.post('https://portal.toverland.nl/auth/jwt/create/', { username, password }, { observe: 'response' }).toPromise().then((res: any) => {
+      const statusCode = res.status;
+      try {
+        if (statusCode <= 200 || statusCode <= 299) {
+          this.token = res.body.access;
+          this.refresh_token = res.body.refresh;
+          this.isAuthenticated.next(true);
+          this.router.navigateByUrl('/home');
+        }
+        else {
+          this.isAuthenticated.next(false);
+          console.error('Error logging in' + res.body);
+        }
+      } catch (error) {
+        console.error('Error logging in' + error);
+        this.isAuthenticated.next(false);
+      }
+      }
+    );
   }
 
   // Sign out

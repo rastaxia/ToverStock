@@ -29,22 +29,19 @@ export class SigninPage implements OnInit {
 
     // Setup form
     this.signin_form = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.email, Validators.required])],
-      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      username: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])]
     });
 
-    // DEBUG: Prefill inputs
-    this.signin_form.get('email').setValue('john.doe@mail.com');
-    this.signin_form.get('password').setValue('123456');
   }
 
   // Sign in
   async signIn() {
-
+    const val = this.signin_form.value;
     this.submit_attempt = true;
 
     // If email or password empty
-    if (this.signin_form.value.email == '' || this.signin_form.value.password == '') {
+    if (val.username == '' || val.password == '') {
       this.toastService.presentToast('Fout', 'Vul je gebruikersnaam en wachtwoord in', 'top', 'danger', 2000);
 
     } else {
@@ -55,14 +52,20 @@ export class SigninPage implements OnInit {
         message: '<p>Aanmelden</p><span>Een moment geduld...</span>',
         spinner: 'crescent'
       });
-      await loading.present();
-      // Fake timeout
-      setTimeout(async () => {
 
-        // Sign in success
-        await this.router.navigate(['/home']);
+      // wait while verifying
+      await loading.present();
+
+      try {
+        // Sign in
+        const response = await this.authService.signIn(val.username, val.password);
+        
         loading.dismiss();
-      }, 2000);
+      } catch (error) {
+        this.toastService.presentToast('Fout', 'Er is iets misgegaan. Probeer het opnieuw.', 'top', 'danger', 2000);
+        loading.dismiss();
+      }
+      
 
     }
   }

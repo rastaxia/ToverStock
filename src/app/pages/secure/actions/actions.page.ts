@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-actions',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionsPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private AuthService: AuthService
+  ) { }
 
   ngOnInit() {
+  }
+
+  async verifyToken() {
+    await this.AuthService.verifyToken();
   }
 
 }

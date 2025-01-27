@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { el } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(
@@ -35,9 +35,15 @@ export class AuthService {
 
   // checks if the token is still valid
   async verifyToken() {
-    return this.http.post('https://portal.toverland.nl/auth/jwt/verify/', { token: this.token }, { observe: 'response' }).toPromise().then((res: any) => {
-      console.log(res);
-    });
+    console.log(this.token);
+    try {
+      return this.http.post('https://portal.toverland.nl/auth/jwt/verify/', { token: this.token }, { observe: 'response' }).toPromise().then((res: any) => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.error('Error verifying token' + error);
+      
+    }
   }
 
 

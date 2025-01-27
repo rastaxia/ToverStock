@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -7,7 +8,9 @@ import { ActionSheetController } from '@ionic/angular';
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage {
-  constructor(private actionSheetController: ActionSheetController) {}
+  constructor(private actionSheetController: ActionSheetController,
+    private router: Router
+    ) {}
 
   // Select action
   async selectAction() {
@@ -19,7 +22,7 @@ export class TabsPage {
           text: 'Telling toevoegen',
           icon: 'reader-outline',
           handler: () => {
-            // Put in logic ...
+            this.router.navigateByUrl('/actions');
           },
         },
         {

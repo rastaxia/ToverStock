@@ -18,15 +18,15 @@ const routes: Routes = [
       },
       {
         path: 'locations',
-        loadChildren: () => import('../pages/secure/locations/locations.module').then(m => m.LocationsModule)
+        loadChildren: () => import('../pages/secure/locations/locations.module').then(m => m.LocationsPageModule)
       },
       {
         path: 'products',
-        loadChildren: () => import('../pages/secure/products/products.module').then(m => m.ProductsModule)
+        loadChildren: () => import('../pages/secure/products/products.module').then(m => m.ProductsPageModule)
       },
       {
         path: 'count',
-        loadChildren: () => import('../pages/secure/count/count.module').then(m => m.CountModule)
+        loadChildren: () => import('../pages/secure/count/count.module').then(m => m.CountPageModule)
       },
     ]
   }
@@ -36,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule { }
+export class TabsPageRoutingModule {}

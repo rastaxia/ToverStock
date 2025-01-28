@@ -4,21 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LocationsRoutingModule } from './locations-routing.module';
+import { LocationsPageRoutingModule } from './locations-routing.module';
 
 import { LocationsPage } from './locations.page';
-
-// NgCharts
-import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LocationsRoutingModule,
-    NgChartsModule
+    LocationsPageRoutingModule
   ],
   declarations: [LocationsPage]
 })
-export class LocationsModule {}
+export class LocationsPageModule {}

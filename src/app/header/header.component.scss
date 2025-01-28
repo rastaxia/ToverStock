@@ -1,3 +1,7 @@
-ion-menu::part(container) {
-box-shadow: 4px 0px 16px var(--ion-color-primary);
+ion-title{
+    font-size: 32px;
+}
+
+ion-header{
+    border-bottom: 1px solid #ccc;
 }

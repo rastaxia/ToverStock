@@ -1,36 +1,16 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { SwiperComponent } from 'swiper/angular';
-import SwiperCore, { SwiperOptions, Pagination } from 'swiper';
-import { AlertController, IonRouterOutlet, LoadingController, ModalController } from '@ionic/angular';
-import { ToastService } from 'src/app/services/toast/toast.service';
-SwiperCore.use([Pagination]);
+import { Component, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-count',
   templateUrl: './count.page.html',
   styleUrls: ['./count.page.scss'],
 })
-export class CountPage implements AfterContentChecked {
+export class CountPage implements OnInit {
 
+  constructor() { }
 
-  // Swiper config
-  config: SwiperOptions = {
-
+  ngOnInit() {
   }
-
-
-
-  constructor(
-    private alertController: AlertController,
-    private toastService: ToastService,
-    private loadingController: LoadingController,
-    private modalController: ModalController,
-    private routerOutlet: IonRouterOutlet
-  ) { }
-
-  ngAfterContentChecked(): void {
-
-  }
-
 
 }

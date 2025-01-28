@@ -1,63 +1,9 @@
 <ion-content>
-  <swiper
-    class="swiper-welcome"
-    #swiper
-    [config]="config"
-    (slideChange)="swiperSlideChanged($event)"
-    (reachEnd)="onLastSlide()"
-  >
-    <!-- slide 1 -->
-    <ng-template swiperSlide>
-      <ion-icon
-        name="scan"
-        class="animate__animated animate__fadeInDown"
-      ></ion-icon>
-      <h3 class="animate__animated animate__fadeInUp">
-        Scan en of zoek producten
-      </h3>
-      <p class="animate__animated animate__fadeInUp">
-        Met behulp van deze app kan vrijwel alles wat in portal gebeurd
-        gemakkelijk in je hand
-      </p>
-    </ng-template>
 
-    <!-- slide 2 -->
-    <!-- <ng-template swiperSlide>
-      <ion-icon name="sync"></ion-icon>
-      <h3>Sync across<br />all your devices</h3>
-      <p>
-        You can describe this feature here with a sentence of multiple lines.
-      </p>
-    </ng-template> -->
-    
-    <!-- slide 3 -->
-    <ng-template swiperSlide>
-      <ion-icon name="stats-chart"></ion-icon>
-      <h3>Extensive<br />insights</h3>
-      <p>
-        You can describe this feature here with a sentence of multiple lines.
-      </p>
-    </ng-template>
-  </swiper>
 </ion-content>
 
 <ion-footer
   class="ion-padding-bottom-large animate__animated animate__fadeInUp"
 >
-  <ion-button
-    class="ion-margin"
-    expand="block"
-    (click)="nextSlide()"
-    *ngIf="!last_slide"
-  >
-    Next
-  </ion-button>
-  <ion-button
-    class="ion-margin"
-    expand="block"
-    (click)="getStarted()"
-    *ngIf="last_slide"
-  >
-    Get started
-  </ion-button>
+
 </ion-footer>

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { SplashScreen } from '@capacitor/splash-screen';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { Capacitor } from '@capacitor/core';
-import { Platform } from '@ionic/angular';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+// Capacitor
+import { SplashScreen } from '@capacitor/splash-screen';
+import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
+
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   hideHeader = false;
@@ -20,7 +23,7 @@ export class AppComponent implements OnInit {
   ) {
     this.initializeApp();
   }
-
+  
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -33,6 +36,7 @@ export class AppComponent implements OnInit {
     });
   }
 
+  
   // Initialize app
   initializeApp() {
 
@@ -58,4 +62,5 @@ export class AppComponent implements OnInit {
       }, 2000);
     });
   }
+
 }

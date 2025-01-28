@@ -17,6 +17,8 @@ export class PublicGuard implements CanActivate {
 
     // If signed in, redirect to home page
     if (is_signed_in) {
+        // if user has seen the welcome page, redirect to home 
+        // else show welcome
       this.router.navigate(['/home']);
     }
 

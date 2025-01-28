@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 
 @Component({
+  standalone: false,
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],

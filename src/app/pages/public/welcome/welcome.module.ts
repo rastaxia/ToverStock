@@ -8,16 +8,12 @@ import { WelcomePageRoutingModule } from './welcome-routing.module';
 
 import { WelcomePage } from './welcome.page';
 
-// Swiper
-import { SwiperModule } from 'swiper/angular';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WelcomePageRoutingModule,
-    SwiperModule
+    WelcomePageRoutingModule
   ],
   declarations: [WelcomePage]
 })

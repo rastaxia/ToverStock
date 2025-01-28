@@ -13,29 +13,31 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/secure/secure.module').then(m => m.SecureModule),
-    // canActivate: [AuthGuard] // Secure all child pages
+    canActivate: [AuthGuard] // Secure all child pages
   },
   {
     path: 'welcome',
     loadChildren: () => import('./pages/public/welcome/welcome.module').then(m => m.WelcomePageModule),
-    // canActivate: [PublicGuard] // Prevent for signed in users
+    canActivate: [PublicGuard], // Prevent for signed in users
     data: { hideHeader: true },
   },
   {
     path: 'signin',
-    loadChildren: () => import('./pages/public/signin/signin.module').then(m => m.SigninPageModule),
-    // canActivate: [PublicGuard] // Prevent for signed in users
+    loadChildren: () => import('./pages/public/sign-in/sign-in.module').then(m => m.SignInPageModule),
+    canActivate: [PublicGuard], // Prevent for signed in users
     data: { hideHeader: true },
   },
   {
-    path: 'actions',
-    loadChildren: () => import('./pages/secure/actions/actions.module').then( m => m.ActionsPageModule)
-  },
+    path:'forgot-password',
+    loadChildren: () => import('./pages/public/forgot-pw/forgot-pw.module').then(m => m.ForgotPwPageModule),
+    canActivate: [PublicGuard], // Prevent for signed in users
+    data: { hideHeader: true },
+  }
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -64,8 +64,9 @@ export class SignInPage implements OnInit {
           val.username,
           val.password
         );
-
+        
         loading.dismiss();
+        this.signIn_form.reset();
       } catch (error) {
         this.toastService.presentToast(
           'Fout',

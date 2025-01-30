@@ -13,15 +13,15 @@ export class PublicGuard implements CanActivate {
 
   async canActivate(): Promise<boolean> {
     
-    const is_signed_in = !!(await this.authService.getSession());
+    const isVerified = !!(await this.authService.getSession());
 
-    // If signed in, redirect to home page
-    if (is_signed_in) {
+    // If true, redirect to home page
+    if (isVerified) {
         // if user has seen the welcome page, redirect to home 
         // else show welcome
       this.router.navigate(['/home']);
     }
 
-    return !is_signed_in;
+    return !isVerified;
   }
 }

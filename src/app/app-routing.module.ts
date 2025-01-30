@@ -6,7 +6,7 @@ import { PublicGuard } from './guards/public.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'welcome', // TODO: Set this to ''
+    redirectTo: 'signin', // TODO: Set this to ''
     pathMatch: 'full',
     data: { hideHeader: true },
   },
@@ -16,15 +16,9 @@ const routes: Routes = [
     canActivate: [AuthGuard] // Secure all child pages
   },
   {
-    path: 'welcome',
-    loadChildren: () => import('./pages/public/welcome/welcome.module').then(m => m.WelcomePageModule),
-    canActivate: [PublicGuard], // Prevent for signed in users
-    data: { hideHeader: true },
-  },
-  {
     path: 'signin',
     loadChildren: () => import('./pages/public/sign-in/sign-in.module').then(m => m.SignInPageModule),
-    canActivate: [PublicGuard], // Prevent for signed in users
+    // canActivate: [PublicGuard], // Prevent for signed in users
     data: { hideHeader: true },
   },
   {

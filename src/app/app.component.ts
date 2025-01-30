@@ -7,6 +7,10 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 
 import { Platform } from '@ionic/angular';
 
+import {register} from 'swiper/element/bundle';
+
+register();
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

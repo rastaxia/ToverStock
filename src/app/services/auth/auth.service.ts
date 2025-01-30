@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
+
+interface TokenResponse {
+  access: string;
+  status: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,47 +18,81 @@ export class AuthService {
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  // Token checks if you have rights
-  token = '';
-  // Refresh token for when the token is expired
-  refresh_token = '';
 
   // Get user session
   async getSession() {
-    // Check if token is valid
-    const isTokenValid = await this.verifyToken();
-    if (isTokenValid) {
+    const verified = await this.verifyToken();
+
+    if (verified) {
       this.isAuthenticated.next(true);
       return true;
     } else {
-      return this.isAuthenticated.value;
+      this.isAuthenticated.next(false);
+      this.signOut();
+      return false;
     }
   }
 
   // handles the token and refreshes it if needed
   async refreshToken() {
-    try {
-      
-      
-    } catch (error) {
-      console.error('Error refreshing token' + error);
-    }
+    // get the refresh token
+    const refresh_token = this.getRefreshToken();
 
+    // if the refresh token exists, try to refresh the token
+    if (refresh_token) {
+      try {
+        const observable = this.http.post<TokenResponse>(
+          'https://portal.toverland.nl/auth/jwt/refresh/',
+          { refresh: refresh_token },
+          { observe: 'response' }
+        );
+
+        const response = await lastValueFrom(observable);
+
+        if (response.status >= 200 && response.status <= 299) {
+          // body could be null, so we need to check if it exists
+          this.saveToken(response?.body?.access?? '');
+          return true;
+        } else {
+          console.error('Error refreshing token:', response);
+          return false;
+        }
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        return false;
+      }
+    } 
+    else {
+      return false;
+    }
   }
 
   // checks if the token is still valid
   async verifyToken() {
     try {
-      const res = await this.http
-        .post(
+      const token = localStorage.getItem('token');
+      // if there is no token
+      if (!token) {
+        return this.refreshToken();
+      } 
+      // if there is a token
+      else 
+      {
+        const observable = this.http.post(
           'https://portal.toverland.nl/auth/jwt/verify/',
-          { token: this.token || localStorage.getItem('token') },
+          { token },
           { observe: 'response' }
-        )
-        .toPromise();
-      return res;
+        );
+        const response = await lastValueFrom(observable);
+        if (response.status >= 200 && response.status <= 299) {
+          return true;
+        } 
+        else 
+        {
+          return await this.refreshToken();
+        }
+      }
     } catch (error) {
-      console.error('Error verifying token' + error);
       return false;
     }
   }
@@ -72,9 +111,9 @@ export class AuthService {
         try {
           if (statusCode <= 200 || statusCode <= 299) {
             this.saveToken(res.body.access);
-            this.token = res.body.access;
+
             this.saveRefreshToken(res.body.refresh);
-            this.refresh_token = res.body.refresh;
+
             this.isAuthenticated.next(true);
             this.router.navigateByUrl('/home');
           } else {

@@ -1,0 +1,26 @@
+<ion-content>
+  <!-- Swiper Container -->
+  <swiper-container [slidesPerView]="1" [pagination]="true">
+    <!-- Swiper Slides -->
+    <swiper-slide>
+      <div class="slide-content">
+        <h1>Welcome to Slide 1</h1>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="slide-content">
+        <h1>Welcome to Slide 2</h1>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="slide-content">
+        <h1>Welcome to Slide 3</h1>
+        <ion-button routerLink="/home">
+          <ion-icon name="arrow-forward"></ion-icon>
+          Continue
+        </ion-button>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+
+</ion-content>

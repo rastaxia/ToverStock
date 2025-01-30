@@ -10,11 +10,6 @@ import { AfterContentChecked, ChangeDetectorRef, Component, ViewChild, ViewEncap
 })
 export class WelcomePage implements AfterContentChecked {
 
-  // const swiper = new Swiper('.swiper', {
-  //   // configure Swiper to use modules
-  //   modules: [Navigation, Pagination],
-    
-  // });
 
   ngAfterContentChecked(): void {
     

@@ -1,7 +1,29 @@
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">actions</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-list>
+  <ion-item>
+    <ion-select interface="popover" placeholder="Select action" [(ngModel)]="selectedAction" (ionChange)="onActionChange()">
+      <ion-select-option value="add-count">Add Count</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+<!-- <ion-card>
+  <ion-card-content>
+    <ion-item>
+      <ion-label >Barcode:</ion-label>
+      <ion-text>fill with barcode</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Name:</ion-label>
+      <ion-text>fill with name</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Article code:</ion-label>
+      <ion-text>fill with article code</ion-text>
+    </ion-item>
+  </ion-card-content>
+  <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+</ion-card> -->
+
+<div [ngSwitch]="selectedAction">
+  <app-add-count *ngSwitchCase="'add-count'"></app-add-count>
+</div>

@@ -26,7 +26,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/public/forgot-pw/forgot-pw.module').then(m => m.ForgotPwPageModule),
     canActivate: [PublicGuard], // Prevent for signed in users
     data: { hideHeader: true },
-  }
+  },
+  
 ];
 @NgModule({
   imports: [

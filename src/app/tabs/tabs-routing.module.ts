@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'count',
         loadChildren: () => import('../pages/secure/count/count.module').then(m => m.CountPageModule)
       },
+      {
+        path: 'actions',
+        loadChildren: () => import('../pages/secure/actions/actions.module').then( m => m.ActionsPageModule),
+      },
     ]
   }
 ];

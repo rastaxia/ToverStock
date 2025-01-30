@@ -8,6 +8,11 @@ interface TokenResponse {
   status: number;
 }
 
+interface create{
+  refresh: string;
+  access: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -99,21 +104,20 @@ export class AuthService {
 
   // Sign in
   async signIn(username: string, password: string) {
-    return this.http
-      .post(
+
+    const observable = this.http
+      .post<create>(
         'https://portal.toverland.nl/auth/jwt/create/',
         { username, password },
         { observe: 'response' }
       )
-      .toPromise()
-      .then((res: any) => {
-        const statusCode = res.status;
+ 
+      const res = await lastValueFrom(observable);
+
         try {
-          if (statusCode <= 200 || statusCode <= 299) {
-            this.saveToken(res.body.access);
-
-            this.saveRefreshToken(res.body.refresh);
-
+          if (res.status <= 200 || res.status <= 299) {
+            this.saveToken(res?.body?.access?? '');
+            this.saveRefreshToken(res?.body?.refresh?? '');
             this.isAuthenticated.next(true);
             this.router.navigateByUrl('/home');
           } else {
@@ -124,7 +128,7 @@ export class AuthService {
           console.error('Error logging in' + error);
           this.isAuthenticated.next(false);
         }
-      });
+
   }
 
   // Sign out

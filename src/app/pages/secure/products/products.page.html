@@ -1,7 +1,6 @@
 <ion-content class="ion-padding">
-  <ion-searchbar
-    placeholder="Zoek: Beschrijving, Artikel code, PLU"
-  ></ion-searchbar>
+  <ion-searchbar (ionInput)="search($event)" placeholder="Zoek: Beschrijving, Artikel code, PLU"></ion-searchbar>
+
 
   @for (article of articles; track $index; let index = $index) {
   <ion-card (click)="openArticle(article.id)">

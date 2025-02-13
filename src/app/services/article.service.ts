@@ -31,7 +31,12 @@ export class ArticleService {
   }
 
   
-
+async searchArticles(search: string) {
+    return this.http.get(this.url + '?search=' + search, {
+      headers: {
+        Authorization: `JWT ${this.authService.getToken()}`
+      }});
+    }
   
 
 }

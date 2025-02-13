@@ -19,6 +19,7 @@ export class ProductsPage implements OnInit {
 
   pageNumber = 1;
   articles: any[] = [];
+  searchTimeout: any;
 
   ngOnInit() {
    this.getArticles();
@@ -56,5 +57,22 @@ export class ProductsPage implements OnInit {
     });
     modal.then((m) => m.present());
   }
+
+   search(event: any) {
+    clearTimeout(this.searchTimeout); 
+
+    this.articles = [];
+    this.searchTimeout = setTimeout(async () => {
+      const response : any = await firstValueFrom(await this.articleService.searchArticles(event.target.value));
+      console.log(response.results);
+      for (let i = 0; i < response.results.length; i++) {
+        this.articles.push(response.results[i]);
+      }
+      
+    }, 500);
+  }
+
+
+
   
 }

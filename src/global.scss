@@ -33,7 +33,7 @@
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-@import "@ionic/angular/css/palettes/dark.class.css"; 
+// @import "@ionic/angular/css/palettes/dark.class.css"; 
 // @import "@ionic/angular/css/palettes/dark.system.css";
 
 /* Swiper bundle */
@@ -62,9 +62,7 @@
   
   html,
   body {
-    // --ion-font-family: "Inter" !important;
-    // font-family: "Inter" !important;
-    --ion-background-color: #141A1F;
+    // --ion-background-color: #141A1F;
     --ion-background-color-rgb: 20, 26, 31;
   }
   

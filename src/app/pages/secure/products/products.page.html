@@ -1,4 +1,26 @@
 <ion-content class="ion-padding">
-  <h1>Welkom op de producten pagina</h1>
-  <p>Dit is een basis pagina zonder echte inhoud.</p>
+  <ion-searchbar
+    placeholder="Zoek: Beschrijving, Artikel code, PLU"
+  ></ion-searchbar>
+
+  <!-- use infinte scroll -->
+  @for (article of articles; track $index; let index = $index) {
+  <ion-card >
+    <div class="product-photo">
+      <img
+        alt="product-foto"
+        src="{{article.image ? article.image : 'https://ionicframework.com/docs/img/demos/card-media.png'}}"
+      />
+    </div>
+
+    <ion-card-content>
+      <ion-card-subtitle> Naam: {{article.description}} </ion-card-subtitle>
+      <ion-card-subtitle> Plu : {{article.plu}} </ion-card-subtitle>
+      <ion-card-subtitle> Barcode: {{article.barcode}} </ion-card-subtitle>
+    </ion-card-content>
+  </ion-card>
+}
+<ion-infinite-scroll (ionInfinite)="onScroll($event)">
+  <ion-infinite-scroll-content loadingText="Bezig met laden..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>

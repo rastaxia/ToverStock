@@ -1,10 +1,17 @@
 <form [formGroup]="countForm" (ngSubmit)="onSubmit()">
   <ion-item>
-    <ion-label color="tertiary" position="stacked">Count</ion-label>
+    <ion-label position="stacked">Count</ion-label>
     <input
       type="number"
       [formControlName]="'count'"
       placeholder="Enter count">
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Count</ion-label>
+    <input
+      type="number"
+      [formControlName]="'count'"
+      placeholder="Barcode">
   </ion-item>
 
   <ion-button expand="block" type="submit" [disabled]="!countForm.valid">

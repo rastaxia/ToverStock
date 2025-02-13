@@ -46,21 +46,8 @@ export class AppComponent implements OnInit {
 
     // Wait until platform is ready
     this.platform.ready().then(async () => {
-
-      // If we're on a mobile platform (iOS / Android), not web
-      if (Capacitor.getPlatform() !== 'web') {
-
-        // Set StatusBar style (dark / light)
-        await StatusBar.setStyle({ style: Style.Dark });
-      }
-
-      // ...
-      // do some more config and setup if necessary
-      // ...
-
-      // Fake timeout since we do not load any data
+        // await StatusBar.setStyle({ style: Style.Light });
       setTimeout(async () => {
-
         // Hide SplashScreen
         await SplashScreen.hide();
       }, 2000);

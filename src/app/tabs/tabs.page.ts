@@ -40,13 +40,13 @@ export class TabsPage {
             // Put in logic ...
           },
         },
-        {
-          text: 'Product toevoegen',
-          icon: 'add-circle-outline',
-          handler: () => {
-            // Put in logic ...
-          },
-        },
+        // {
+        //   text: 'Product toevoegen',
+        //   icon: 'add-circle-outline',
+        //   handler: () => {
+        //     // Put in logic ...
+        //   },
+        // },
         {
           text: 'Verplaatsing toevoegen',
           icon: 'swap-horizontal-outline',

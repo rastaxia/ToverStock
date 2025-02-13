@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { firstValueFrom } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { ModalComponent } from 'src/app/services/modal-controller/modal.component';
 
 @Component({
   standalone: false,
@@ -11,7 +13,8 @@ import { firstValueFrom } from 'rxjs';
 export class ProductsPage implements OnInit {
 
   constructor(
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private modalCtrl: ModalController
   ) { }
 
   pageNumber = 1;
@@ -42,6 +45,16 @@ export class ProductsPage implements OnInit {
       event.target.complete();
     }, 500);
     
+  }
+
+  openArticle(id: number) {
+    const modal = this.modalCtrl.create({
+      component: ModalComponent,
+      componentProps: {
+        id: id
+      }
+    });
+    modal.then((m) => m.present());
   }
   
 }

@@ -13,7 +13,6 @@ export class ArticleService {
   ) { }
 
   url = 'https://portal.toverland.nl/api/v1/stock/articles/';
-
   
   async getArticles(pageNumber: number) {
     return this.http.get(this.url + '?page=' + pageNumber, {
@@ -30,6 +29,8 @@ export class ArticleService {
       }
     });
   }
+
+  
 
   
 

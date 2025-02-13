@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-icon
+        slot="icon-only"
+        name="close-circle-outline"
+        (click)="closeModal()"
+      ></ion-icon>
+    </ion-buttons>
+    <ion-title>Product info</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="imgContainer">
+    <img
+      *ngIf="article.image"
+      src="https://portal.toverland.nl/{{ article.image }}"
+      alt="Foto van article"
+    />
+
+    <svg
+      *ngIf="!article.image"
+      viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <rect width="100%" height="100%" fill="#e0e0e0" rx="10" />
+      <text
+        x="50%"
+        y="40"
+        font-size="14"
+        font-family="Arial"
+        fill="#555"
+        text-anchor="middle"
+      >
+        Geen foto beschikbaar
+      </text>
+      <!-- Camera -->
+      <g transform="translate(50, 70)">
+        <rect x="10" y="20" width="80" height="50" rx="8" fill="#bbb" />
+        <circle cx="50" cy="45" r="15" fill="#888" />
+        <circle cx="50" cy="45" r="7" fill="#e0e0e0" />
+        <rect x="35" y="10" width="30" height="8" rx="4" fill="#bbb" />
+      </g>
+    </svg>
+  </div>
+  <hr />
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <b> Naam: </b>
+        {{ article.description }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> <b> Barcode: </b> {{ article.barcode }} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="article.extra_info">
+      <ion-label>
+        <b> Extra info: </b>
+        {{ article.extra_info }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> <b> PLU: </b>{{ article.plu }} </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <B> Totaal voorraad: </B>
+        {{ article.new_stock }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <b> Verkoopprijs: </b> &#8364;{{ article.sale_price }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

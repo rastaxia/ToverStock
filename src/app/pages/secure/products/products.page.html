@@ -3,9 +3,8 @@
     placeholder="Zoek: Beschrijving, Artikel code, PLU"
   ></ion-searchbar>
 
-  <!-- use infinte scroll -->
   @for (article of articles; track $index; let index = $index) {
-  <ion-card >
+  <ion-card (click)="openArticle(article.id)">
     <div class="product-photo">
       <img
         alt="product-foto"

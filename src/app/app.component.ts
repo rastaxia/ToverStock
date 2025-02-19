@@ -5,7 +5,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 
-import { Platform } from '@ionic/angular';
+import { Platform, Config } from '@ionic/angular';
 
 import {register} from 'swiper/element/bundle';
 
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   hideHeader = false;
 
   constructor(
+    private config: Config,
     private platform: Platform,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -43,7 +44,6 @@ export class AppComponent implements OnInit {
   
   // Initialize app
   initializeApp() {
-
     // Wait until platform is ready
     this.platform.ready().then(async () => {
         // await StatusBar.setStyle({ style: Style.Light });

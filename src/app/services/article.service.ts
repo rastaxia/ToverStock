@@ -14,6 +14,7 @@ export class ArticleService {
 
   url = 'https://portal.toverland.nl/api/v1/stock/articles/';
   
+  // get all Articles
   async getArticles(pageNumber: number) {
     return this.http.get(this.url + '?page=' + pageNumber, {
       headers: {
@@ -22,6 +23,7 @@ export class ArticleService {
     }); 
   }
 
+  // get specific Articles
   async getArticle(id: number) {
     return this.http.get(this.url + id + '/', {
       headers: {
@@ -30,9 +32,10 @@ export class ArticleService {
     });
   }
 
-  
+
+  // search 
 async searchArticles(search: string) {
-    return this.http.get(this.url + '?search=' + search, {
+    return this.http.get(this.url + 'search/?search=' + search, {
       headers: {
         Authorization: `JWT ${this.authService.getToken()}`
       }});

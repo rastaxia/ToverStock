@@ -62,6 +62,7 @@
   
   html,
   body {
+    --ion-mode: ios !important;
     // --ion-background-color: #141A1F;
     --ion-background-color-rgb: 20, 26, 31;
   }
@@ -320,6 +321,7 @@
   /* Animation */
   :root {
     --animate-duration: .25s;
+    --ion-mode: ios !important;
   }
   
   /* Loading controller */

@@ -26,19 +26,19 @@ export class ProductsPage implements OnInit {
    
   }
 
+  // get articles from the API
   async getArticles() {
     try {
       const response : any = await firstValueFrom(await this.articleService.getArticles(this.pageNumber));
-      // console.log(response.results);
       for (let i = 0; i < response.results.length; i++) {
         this.articles.push(response.results[i]);
       }
-      console.log(this.articles);
     } catch (error) {
       console.error('Er is een fout opgetreden:', error);
     }
   }
 
+  // infite scroll function
   onScroll(event: any) {
     this.pageNumber++;
     this.getArticles();
@@ -48,6 +48,7 @@ export class ProductsPage implements OnInit {
     
   }
 
+  // open article modal
   openArticle(id: number) {
     const modal = this.modalCtrl.create({
       component: ModalComponent,
@@ -58,20 +59,30 @@ export class ProductsPage implements OnInit {
     modal.then((m) => m.present());
   }
 
-   search(event: any) {
-    clearTimeout(this.searchTimeout); 
 
+  isLoading = false; 
+
+  // Search function
+  search(event: any) {
+    clearTimeout(this.searchTimeout);
     this.articles = [];
+    this.isLoading = true; 
     this.searchTimeout = setTimeout(async () => {
-      const response : any = await firstValueFrom(await this.articleService.searchArticles(event.target.value));
-      console.log(response.results);
-      for (let i = 0; i < response.results.length; i++) {
-        this.articles.push(response.results[i]);
+      try {
+        const response: any = await firstValueFrom(
+          await this.articleService.searchArticles(event.target.value)
+        );
+  
+        this.articles = response.results;
+  
+      } catch (error) {
+        console.error("Error fetching articles", error);
+      } finally {
+        this.isLoading = false; 
       }
-      
     }, 500);
   }
-
+  
 
 
   

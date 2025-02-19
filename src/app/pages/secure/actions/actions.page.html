@@ -20,6 +20,6 @@
   </ion-item>
 </ion-list>
 
-<div [ngSwitch]="selectedAction">
+<div class="dynamicForm" [ngSwitch]="selectedAction">
   <app-add-count *ngSwitchCase="'add-count'"></app-add-count>
 </div>

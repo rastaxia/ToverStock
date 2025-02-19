@@ -4,14 +4,16 @@
     <input
       type="number"
       [formControlName]="'count'"
-      placeholder="Enter count">
+      placeholder="Enter count"
+    />
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">Count</ion-label>
-    <input
-      type="number"
-      [formControlName]="'count'"
-      placeholder="Barcode">
+    <ion-label position="stacked">Barcode</ion-label>
+    <input type="number" [formControlName]="'barcode'" placeholder="Barcode" />
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Comment</ion-label>
+    <input type="text" placeholder="Comment" />
   </ion-item>
 
   <ion-button expand="block" type="submit" [disabled]="!countForm.valid">

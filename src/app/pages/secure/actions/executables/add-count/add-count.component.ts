@@ -15,15 +15,15 @@ export class AddCountComponent implements OnInit {
     private ngZone: NgZone
   ) {
     this.countForm = this.fb.group({
-      count: ['', [Validators.required, Validators.min(0)]]
+      count: ['', [Validators.required, Validators.min(1)]],
+      barcode: ['', [Validators.required, Validators.minLength(6)]]
+    
     });
   }
 
   ngOnInit() {
-    // This runs the form value changes outside Angular's zone
     this.ngZone.runOutsideAngular(() => {
       this.countForm.valueChanges.subscribe(() => {
-        // Only run change detection when necessary
         this.ngZone.run(() => {});
       });
     });

@@ -783,61 +783,7 @@
     margin-bottom: 8px;
   }
   
-  /* Alert */
-  ion-alert.sc-ion-alert-ios-h {
-    --backdrop-opacity: .8;
-  }
   
-  .alert-wrapper.sc-ion-alert-ios {
-    background: var(--ion-color-white);
-    border-radius: 8px;
-    width: 100%;
-    max-width: calc(100% - 16px);
-    padding: 24px 0px 8px 0;
-  }
-  
-  .alert-head.sc-ion-alert-ios {
-    padding-top: 0;
-    padding-bottom: 6px;
-  }
-  
-  .alert-title.sc-ion-alert-ios {
-    margin-top: 0px;
-    font-size: 18px;
-    font-weight: 600;
-  }
-  
-  .alert-message.sc-ion-alert-ios {
-    font-size: 14px;
-    color: var(--ion-color-tertiary);
-  }
-  
-  .alert-button.sc-ion-alert-ios.danger {
-    color: var(--ion-color-white);
-    font-weight: 500;
-    border: none;
-    background: var(--ion-color-danger);
-    margin: 0px 16px;
-    border-radius: 3px;
-  }
-  
-  .alert-button.sc-ion-alert-ios.alert-button-role-cancel {
-    color: var(--ion-color-medium);
-    font-weight: 500;
-    border: none;
-    background: transparent;
-    margin: 0px 16px;
-    border-radius: 3px;
-  }
-  
-  .alert-button.sc-ion-alert-ios:last-child {
-    margin-top: 6px !important;
-  }
-  
-  .alert-button-group.sc-ion-alert-ios {
-    max-width: 75%;
-    margin: 0 auto;
-  }
   
   /* Loading */
   .default-loading .loading-wrapper p {

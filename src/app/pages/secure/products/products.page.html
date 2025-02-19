@@ -24,11 +24,33 @@
         />
       </div>
 
-      <ion-card-content>
-        <ion-card-subtitle> Naam: {{article.description}} </ion-card-subtitle>
-        <ion-card-subtitle> Plu : {{article.plu}} </ion-card-subtitle>
-        <ion-card-subtitle> Barcode: {{article.barcode}} </ion-card-subtitle>
-      </ion-card-content>
+
+        <ion-card-content>
+          <p>
+            <b>
+              Naam: 
+            </b>
+            {{article.description}}             
+          </p> 
+          <p *ngIf="article.barcode">
+            <b>
+              Barcode: 
+            </b>
+            {{article.barcode}}
+          </p>
+          <p *ngIf="article.new_stock">
+            <b>
+              Aantal: 
+            </b>
+            {{article.new_stock}}
+          </p>
+          <p *ngIf="article.articleCode">
+            <b>
+              Artikel code: 
+            </b>  
+            {{article.articleCode}}
+          </p>
+        </ion-card-content>
     </ion-card>
     }
   </ng-container>

@@ -34,7 +34,7 @@ export class ProductsPage implements OnInit {
         this.articles.push(response.results[i]);
       }
     } catch (error) {
-      console.error('Er is een fout opgetreden:', error);
+      console.error('Error:', error);
     }
   }
 

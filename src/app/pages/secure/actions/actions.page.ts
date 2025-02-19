@@ -31,6 +31,7 @@ export class ActionsPage implements OnInit {
         await this.locations.getLocations()
       );
       this.locationList = response.results;
+      console.log('Locations:', this.locationList);
     } catch (error) {
       console.log('Error:', error);
     }

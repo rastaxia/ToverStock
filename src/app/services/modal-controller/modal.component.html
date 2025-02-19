@@ -46,7 +46,16 @@
       </g>
     </svg>
   </div>
+
   <hr />
+  <ion-button
+  *ngIf="!article.image"	
+    expand="block"
+    color="primary"
+    >
+    Voeg foto toe
+  </ion-button>
+  <hr *ngIf="!article.image" /> 
   <ion-list>
     <ion-item>
       <ion-label>
@@ -74,8 +83,26 @@
     </ion-item>
     <ion-item>
       <ion-label>
+        <b> Inkoopprijs: </b> &#8364;{{ article.purchase_price }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
         <b> Verkoopprijs: </b> &#8364;{{ article.sale_price }}
       </ion-label>
     </ion-item>
+    <ion-item>
+      <ion-label>
+        <b> Leverancier: </b> {{article.supplier}}
+      </ion-label>
+    </ion-item>
+
+    <!-- should become a list of all locations -->
+    <!-- <ion-item>
+      <ion-label>
+        <b> Verkoopprijs: </b> &#8364;{{ article.sale_price }}
+      </ion-label>
+    </ion-item> -->
+    
   </ion-list>
 </ion-content>

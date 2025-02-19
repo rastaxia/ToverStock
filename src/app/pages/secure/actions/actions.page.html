@@ -2,6 +2,14 @@
   <ion-item>
     <ion-select interface="popover" placeholder="Select action" [(ngModel)]="selectedAction" (ionChange)="onActionChange()">
       <ion-select-option value="add-count">Add Count</ion-select-option>
+      <ion-select-option>Add Delivery</ion-select-option>
+      <ion-select-option>Add Fraction</ion-select-option>
+      <ion-select-option>Move Product</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select interface="popover" placeholder="Select location" [(ngModel)]="selectedAction" (ionChange)="onActionChange()">
+      <ion-select-option value="add-count">Locaties</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-list>

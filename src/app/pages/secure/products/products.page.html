@@ -1,32 +1,40 @@
 <ion-content class="ion-padding">
-  <ion-searchbar (ionInput)="search($event)" placeholder="Zoek: Beschrijving, Artikel code, PLU"></ion-searchbar>
+  <ion-item class="searchContainer">
+    <ion-searchbar
+      (ionInput)="search($event)"
+      placeholder="Zoek: Beschrijving, Artikel code, PLU"
+    ></ion-searchbar>
+  </ion-item>
 
-  <div *ngIf="isLoading">
-    <ion-label>Default</ion-label>
+  <div class="loader" *ngIf="isLoading">
+    <ion-label>Loading....</ion-label>
     <ion-spinner name="circular"></ion-spinner>
   </div>
 
   <ng-container *ngIf="!isLoading">
     @for (article of articles; track $index; let index = $index) {
-      <ion-card (click)="openArticle(article.id)">
-        <div class="product-photo">
-          <img
-            alt="product-foto"
-            src="{{article.image ? article.image : 'https://ionicframework.com/docs/img/demos/card-media.png'}}"
-          />
-        </div>
+    <ion-card
+      (click)="openArticle(article.id)"
+      [ngClass]="{'first-card': index === 0}"
+    >
+      <div class="product-photo">
+        <img
+          alt="product-foto"
+          src="{{article.image ? article.image : 'https://ionicframework.com/docs/img/demos/card-media.png'}}"
+        />
+      </div>
 
-        <ion-card-content>
-          <ion-card-subtitle> Naam: {{article.description}} </ion-card-subtitle>
-          <ion-card-subtitle> Plu : {{article.plu}} </ion-card-subtitle>
-          <ion-card-subtitle> Barcode: {{article.barcode}} </ion-card-subtitle>
-        </ion-card-content>
-      </ion-card>
+      <ion-card-content>
+        <ion-card-subtitle> Naam: {{article.description}} </ion-card-subtitle>
+        <ion-card-subtitle> Plu : {{article.plu}} </ion-card-subtitle>
+        <ion-card-subtitle> Barcode: {{article.barcode}} </ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
     }
   </ng-container>
 
   <ng-container *ngIf="!isLoading && articles.length === 0">
-    <ion-card>
+    <ion-card class="noProd">
       <ion-card-content>
         <ion-card-title>Geen producten gevonden</ion-card-title>
       </ion-card-content>
@@ -34,7 +42,9 @@
   </ng-container>
 
   <ion-infinite-scroll (ionInfinite)="onScroll($event)">
-    <ion-infinite-scroll-content loadingText="Bezig met laden..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content
+      loadingText="Bezig met laden..."
+      loadingSpinner="bubbles"
+    ></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-

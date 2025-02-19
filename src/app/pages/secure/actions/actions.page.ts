@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+import { LocationsService } from 'src/app/services/locations.service';
 
 @Component({
   standalone: false,
@@ -10,8 +12,11 @@ import { FormGroup } from '@angular/forms';
 export class ActionsPage implements OnInit {
   form: FormGroup;
   selectedAction: string;
+  locationList = [];
 
-  constructor() {
+  constructor(
+    private locations: LocationsService
+  ) {
     this.selectedAction = '';
   }
 
@@ -19,5 +24,20 @@ export class ActionsPage implements OnInit {
     console.log('Selected action:', this.selectedAction);
   }
 
-  ngOnInit() {}
+  // Gets all locations
+  async getLocations() {
+    try {
+      const response: any = await firstValueFrom(
+        await this.locations.getLocations()
+      );
+      this.locationList = response.results;
+    } catch (error) {
+      console.log('Error:', error);
+    }
+    
+  }
+
+  ngOnInit() {
+    this.getLocations();
+  }
 }

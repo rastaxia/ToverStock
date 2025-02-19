@@ -8,3 +8,29 @@
         background-blend-mode: color;
     }
 }
+
+.loader{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    ion-label{
+        font-size: 24px;
+    }
+}
+
+.searchContainer{
+    width: 100%;
+    background-color: white;
+    z-index: 200;
+    position: fixed;
+}
+
+.noProd{
+    margin-top: 90px;
+}
+
+.first-card{
+    margin-top: 90px;
+}

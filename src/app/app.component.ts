@@ -5,9 +5,11 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 
-import { Platform, Config } from '@ionic/angular';
+import { Platform, Config, AlertController } from '@ionic/angular';
 
 import {register} from 'swiper/element/bundle';
+
+import { DataWedge } from 'capacitor-datawedge';
 
 register();
 
@@ -21,15 +23,18 @@ export class AppComponent implements OnInit {
   hideHeader = false;
 
   constructor(
+    private alertController: AlertController,
     private config: Config,
     private platform: Platform,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+   
   ) {
     this.initializeApp();
   }
   
   ngOnInit(): void {
+    console.log('AppComponent ngOnInit');
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         let currentRoute = this.activatedRoute.root;
@@ -38,6 +43,10 @@ export class AppComponent implements OnInit {
         }
         this.hideHeader = currentRoute.snapshot.data['hideHeader'] || false;
       }
+    });
+
+    DataWedge.addListener('scan', event => {
+      this.presentAlert(`Gescannde code: ${event.data}`);
     });
   }
 
@@ -53,5 +62,17 @@ export class AppComponent implements OnInit {
       }, 2000);
     });
   }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Scan ontvangen!',
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+
+
+
 
 }

@@ -1,4 +1,5 @@
 <ion-list>
+  <!-- action select -->
   <ion-item>
     <ion-select placeholder="Select action" [(ngModel)]="selectedAction" (ionChange)="onActionChange()">
       <div slot="label">Actie:</div>
@@ -8,14 +9,15 @@
       <ion-select-option>Move Product</ion-select-option>
     </ion-select>
   </ion-item>
+  <!-- Location select -->
   <ion-item>
-    <ion-select placeholder="Select location" >
+    <ion-select placeholder="Select location" (ionChange)="onLocationChange($event)" >
       <div slot="label">
         <ion-label>Locatie:</ion-label>
       </div>
-      @for (location of locationList; track $index ; let index = $index) {
-      <ion-select-option value="{{location['id']}}">{{location['name']}}</ion-select-option>
-      }
+
+      <ion-select-option *ngFor="let location of locationList; let index = index" [value]="location['id']">{{location['name']}}</ion-select-option>
+
     </ion-select>
   </ion-item>
 </ion-list>

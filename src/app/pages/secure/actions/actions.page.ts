@@ -13,15 +13,21 @@ export class ActionsPage implements OnInit {
   form: FormGroup;
   selectedAction: string;
   locationList = [];
+  selectedLocation: string;
 
   constructor(
     private locations: LocationsService
   ) {
     this.selectedAction = '';
+    this.selectedLocation = '';
   }
 
   onActionChange() {
     console.log('Selected action:', this.selectedAction);
+  }
+
+  onLocationChange(event: any) {
+    console.log('Selected location:', event.target.value);
   }
 
   // Gets all locations

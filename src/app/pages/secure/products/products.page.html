@@ -12,6 +12,7 @@
   </div>
 
   <ng-container *ngIf="!isLoading">
+    <!-- make this a ng for -->
     @for (article of articles; track $index; let index = $index) {
     <ion-card
       (click)="openArticle(article.id)"

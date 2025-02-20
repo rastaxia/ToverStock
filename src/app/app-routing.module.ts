@@ -6,7 +6,7 @@ import { PublicGuard } from './guards/public.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'signin', 
+    redirectTo: 'home', 
     pathMatch: 'full',
     data: { hideHeader: true },
   },

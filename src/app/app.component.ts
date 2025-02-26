@@ -45,9 +45,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    DataWedge.addListener('scan', event => {
-      this.presentAlert(`Gescannde code: ${event.data}`);
-    });
+
   }
 
   
@@ -55,9 +53,7 @@ export class AppComponent implements OnInit {
   initializeApp() {
     // Wait until platform is ready
     this.platform.ready().then(async () => {
-        // await StatusBar.setStyle({ style: Style.Light });
       setTimeout(async () => {
-        // Hide SplashScreen
         await SplashScreen.hide();
       }, 2000);
     });
@@ -72,7 +68,7 @@ export class AppComponent implements OnInit {
     await alert.present();
   }
 
-
+  
 
 
 }

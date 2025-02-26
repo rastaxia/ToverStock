@@ -1,27 +1,65 @@
-<ion-list>
-  <!-- action select -->
+<ion-content class="ion-padding">
+  <ion-list>
+    <!-- action select -->
+    <ion-item>
+      <ion-select
+        placeholder="Select action"
+        [(ngModel)]="selectedAction"
+        (ionChange)="onActionChange()"
+      >
+        <div slot="label">Actie:</div>
+        <ion-select-option value="add-count">Add Count</ion-select-option>
+        <ion-select-option>Add Delivery</ion-select-option>
+        <ion-select-option>Add Fraction</ion-select-option>
+        <ion-select-option>Move Product</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <!-- Location select -->
+    <ion-item>
+      <ion-select
+        placeholder="Select location"
+        (ionChange)="onLocationChange($event)"
+      >
+        <div slot="label">
+          <ion-label>Locatie:</ion-label>
+        </div>
+
+        <ion-select-option
+          *ngFor="let location of locationList; let index = index"
+          [value]="location['id']"
+          >{{location['name']}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <hr />
+
+  <ion-button (click)="cameraScan()">
+    <ion-icon name="camera-outline"></ion-icon>
+    Scan Barcode met camera
+  </ion-button>
+  <p id="testStuff"></p>
+  <hr />
   <ion-item>
-    <ion-select placeholder="Select action" [(ngModel)]="selectedAction" (ionChange)="onActionChange()">
-      <div slot="label">Actie:</div>
-      <ion-select-option value="add-count">Add Count</ion-select-option>
-      <ion-select-option>Add Delivery</ion-select-option>
-      <ion-select-option>Add Fraction</ion-select-option>
-      <ion-select-option>Move Product</ion-select-option>
-    </ion-select>
+    <ion-input
+      type="text"
+      [(ngModel)]="scannedCode"
+      placeholder="Voer hier je barcode handmatig in"
+    ></ion-input>
   </ion-item>
-  <!-- Location select -->
-  <ion-item>
-    <ion-select placeholder="Select location" (ionChange)="onLocationChange($event)" >
-      <div slot="label">
-        <ion-label>Locatie:</ion-label>
-      </div>
+  <!-- step2 show scanned product -->
+    <ion-card *ngIf="scannedProduct">
+      <ion-card-content>
+      <p><b>Naam: </b> {{scannedProduct['description']}}</p>
+      <p><b>Product code: </b>{{scannedProduct['code']}}</p>
+      <ion-img src="https://portal.toverland.nl{{scannedProduct['image']}}" alt="product image"></ion-img>
+      </ion-card-content>
+    </ion-card>
 
-      <ion-select-option *ngFor="let location of locationList; let index = index" [value]="location['id']">{{location['name']}}</ion-select-option>
-
-    </ion-select>
-  </ion-item>
-</ion-list>
-
-<div class="dynamicForm" [ngSwitch]="selectedAction">
-  <app-add-count *ngSwitchCase="'add-count'"></app-add-count>
-</div>
+  <hr />
+  <!-- step3 show dynamic form -->
+  <div class="dynamicForm" [ngSwitch]="selectedAction" *ngIf="scannedProduct">
+    <app-add-count *ngSwitchCase="'add-count'"></app-add-count>
+  </div>
+</ion-content>

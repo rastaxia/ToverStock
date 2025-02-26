@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular'; 
 import { firstValueFrom } from 'rxjs';
-import { ArticleService } from 'src/app/services/article.service';
+import { ArticleService } from 'src/app/services/product-service/article.service';
 
 @Component({
   standalone: false,

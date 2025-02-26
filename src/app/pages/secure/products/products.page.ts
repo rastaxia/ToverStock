@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from 'src/app/services/article.service';
+import { ArticleService } from 'src/app/services/product-service/article.service';
 import { firstValueFrom } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { ModalComponent } from 'src/app/services/modal-controller/modal.component';

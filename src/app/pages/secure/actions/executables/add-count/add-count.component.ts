@@ -16,8 +16,6 @@ export class AddCountComponent implements OnInit {
   ) {
     this.countForm = this.fb.group({
       count: ['', [Validators.required, Validators.min(1)]],
-      barcode: ['', [Validators.required, Validators.minLength(6)]]
-    
     });
   }
 
@@ -28,10 +26,15 @@ export class AddCountComponent implements OnInit {
       });
     });
   }
-
+  
   onSubmit() {
     if (this.countForm.valid) {
-      console.log('Form submitted:', this.countForm.value);
+      
+      this.addCount();
     }
+  }
+
+  addCount() {
+    // https://portal.toverland.nl/api/v1/stock/articles/find-by-barcode/
   }
 }

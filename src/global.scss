@@ -523,6 +523,7 @@
   
   /* Fab button */
   ion-fab.ion-fab-custom {
+    position: inherit;
     bottom: 20px;
     background: rgba(var(--ion-color-primary-rgb), .1);
     padding: 8px;

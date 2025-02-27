@@ -1,3 +1,26 @@
-<p>
-  move-product works!
-</p>
+<form [formGroup]="moveForm">
+      <ion-item>
+        <ion-label position="stacked">To</ion-label>
+        <input type="text" placeholder="Comment" [formControlName]="'location2'" />
+      </ion-item>
+      
+      <ion-item>
+      <ion-label position="stacked">Count</ion-label>
+      <input
+        type="number"
+        [formControlName]="'count'"
+        placeholder="Enter count"
+      />
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Comment</ion-label>
+        <input type="text" placeholder="Comment" [formControlName]="'comment'" />
+      </ion-item>
+      <hr>
+  
+    <ion-button expand="block" type="submit" [disabled]="!moveForm.valid">
+      Submit
+    </ion-button>
+  </form>
+  

@@ -9,7 +9,7 @@
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Comment</ion-label>
-    <input type="text" placeholder="Comment" />
+    <input type="text" placeholder="Comment" [formControlName]="'comment'" />
   </ion-item>
 
   <ion-button expand="block" type="submit" [disabled]="!countForm.valid">

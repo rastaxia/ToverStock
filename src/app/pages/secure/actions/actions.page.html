@@ -5,13 +5,12 @@
       <ion-select
         placeholder="Select action"
         [(ngModel)]="selectedAction"
-        (ionChange)="onActionChange()"
       >
         <div slot="label">Actie:</div>
         <ion-select-option value="add-count">Add Count</ion-select-option>
-        <ion-select-option>Add Delivery</ion-select-option>
-        <ion-select-option>Add Fraction</ion-select-option>
-        <ion-select-option>Move Product</ion-select-option>
+        <ion-select-option value="add-delivery">Add Delivery</ion-select-option>
+        <ion-select-option value="add-fraction">Add Fraction</ion-select-option>
+        <ion-select-option value="move-product">Move Product</ion-select-option>
       </ion-select>
     </ion-item>
     <!-- Location select -->
@@ -61,5 +60,8 @@
   <!-- step3 show dynamic form -->
   <div class="dynamicForm" [ngSwitch]="selectedAction" *ngIf="scannedProduct">
     <app-add-count *ngSwitchCase="'add-count'"></app-add-count>
+    <app-add-delivery *ngSwitchCase="'add-delivery'"></app-add-delivery>
+    <app-add-fraction *ngSwitchCase="'add-fraction'"></app-add-fraction>
+    <app-move-product *ngSwitchCase="'move-product'"></app-move-product>
   </div>
 </ion-content>

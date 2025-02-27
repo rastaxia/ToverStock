@@ -1,3 +1,18 @@
-<p>
-  add-delivery works!
-</p>
+<form [formGroup]="deliveryForm">
+  <ion-item>
+    <ion-label position="stacked">Count</ion-label>
+    <input
+      type="number"
+      [formControlName]="'count'"
+      placeholder="Enter count"
+    />
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Comment</ion-label>
+    <input type="text" placeholder="Comment" [formControlName]="'comment'" />
+  </ion-item>
+
+  <ion-button expand="block" type="submit" [disabled]="!deliveryForm.valid">
+    Submit
+  </ion-button>
+</form>

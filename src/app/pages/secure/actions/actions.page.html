@@ -78,7 +78,10 @@
           [ngSwitch]="selectedAction"
           *ngIf="scannedProduct"
         >
-          <app-add-count *ngSwitchCase="'add-count'"></app-add-count>
+          <app-add-count 
+            *ngSwitchCase="'add-count'"
+            (clearPageEvent)="clearPage()"
+          ></app-add-count>
           <app-add-delivery *ngSwitchCase="'add-delivery'"></app-add-delivery>
           <app-add-fraction *ngSwitchCase="'add-fraction'"></app-add-fraction>
           <app-move-product *ngSwitchCase="'move-product'"></app-move-product>

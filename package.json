@@ -31,6 +31,7 @@
     "@capacitor/splash-screen": "^6.0.3",
     "@capacitor/status-bar": "^6.0.2",
     "@ionic/angular": "^8.0.0",
+    "@micro-sentry/angular": "^7.1.1",
     "capacitor-datawedge": "^0.3.4",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",

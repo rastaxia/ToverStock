@@ -1,10 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from 'src/app/services/product-service/article.service';
 import { CountService } from 'src/app/services/product-service/count.service';
 import { LoadingController } from '@ionic/angular';
 import { timeout } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 /**
  * Component for adding count to inventory items
@@ -20,13 +21,16 @@ export class AddCountComponent implements OnInit {
   // Form group for handling count and comment inputs
   countForm: FormGroup;
 
+  @Output() clearPageEvent = new EventEmitter<void>();
+
   constructor(
     private fb: FormBuilder,
     private ngZone: NgZone,
     private countService: CountService,
     private articleService: ArticleService,
     private loadingController: LoadingController,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService
   ) {
     // Initialize form with validators
     this.countForm = this.fb.group({
@@ -114,11 +118,34 @@ export class AddCountComponent implements OnInit {
         count, 
         comment
       );
-      loading.dismiss();
-      // TODO: Reset page to just have location and action selected
+
+      // Show success message
+      await this.toastService.presentToast(
+        'Succes',
+        'Telling is succesvol toegevoegd',
+        'top',
+        'success',
+        2000
+      );
+
+      // Reset form
+      this.countForm.reset();
       
+      // Emit event to clear parent page
+      this.clearPageEvent.emit();
+
     } catch (error) {
       console.error('error: ', error);
+      
+      // Show error message
+      await this.toastService.presentToast(
+        'Fout',
+        'Er is een fout opgetreden bij het toevoegen van de telling',
+        'top',
+        'danger',
+        2000
+      );
+    } finally {
       await loading.dismiss();
     }
   }

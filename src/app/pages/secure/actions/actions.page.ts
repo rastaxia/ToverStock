@@ -8,6 +8,7 @@ import {
   CapacitorBarcodeScannerTypeHint,
 } from '@capacitor/barcode-scanner';
 import { ArticleService } from 'src/app/services/product-service/article.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   standalone: false,
@@ -22,13 +23,14 @@ export class ActionsPage implements OnInit {
   selectedLocation: number;
   scannedCode: string = '';
 
-  productID = 2544;
+  productID: number | null;
   scannedProduct: any;
 
   constructor(
     private articleService: ArticleService,
     private locations: LocationsService,
-    private zone: NgZone
+    private zone: NgZone,
+    private toastService: ToastService
   ) {
   }
 
@@ -83,15 +85,36 @@ export class ActionsPage implements OnInit {
 
   // get product by barcode
   async getProductByBarcode(barcode: string) {
-    const result = await this.articleService.getArticleByBarcode(barcode);
-    this.scannedProduct = await firstValueFrom(result);
-    this.saveProduct();
+    try {
+      const result = await this.articleService.getArticleByBarcode(barcode);
+      this.scannedProduct = await firstValueFrom(result);
+      await this.articleService.saveArticle(this.selectedLocation, this.scannedProduct.id);
+    } catch (error) {
+      console.error('Error:', error);
+      await this.toastService.presentToast(
+        'Fout',
+        'Product niet gevonden',
+        'top',
+        'danger',
+        2000
+      );
+    }
   } 
 
-  // save product
-  async saveProduct() {
-    await this.articleService.saveArticle(this.selectedLocation, this.scannedProduct.id);
-  }
+  // Clear page method implementation
+  async clearPage() {
+    // Keep selected action and location
+    const currentAction = this.selectedAction;
+    const currentLocation = this.selectedLocation;
+    console.log('Location:', currentLocation)
 
-  async clearPage(){}
+    // Reset other values
+    this.scannedCode = '';
+    this.scannedProduct = null;
+    this.productID = null;
+
+    // Restore selected values
+    this.selectedAction = currentAction;
+    this.selectedLocation = currentLocation;
+  }
 }

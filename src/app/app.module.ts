@@ -9,10 +9,14 @@ import { HeaderComponent } from './header/header.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ModalComponent } from './services/modal-controller/modal.component';
 import { AuthInterceptor } from './guards/auth.interceptor';
+import { MicroSentryModule } from '@micro-sentry/angular';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, ModalComponent],
   imports: [
+    MicroSentryModule.forRoot({
+      dsn: "https://0fbf99c160d54371acc1bf6016362c40@tracker.back-bone.nl/11"
+    }),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,

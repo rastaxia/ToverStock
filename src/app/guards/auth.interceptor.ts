@@ -53,27 +53,21 @@ export class AuthInterceptor implements HttpInterceptor {
               const token = this.authService.getToken();
               if (token) {
                 this.refreshTokenSubject.next(token);
-                observer.next();
-                observer.complete();
-                // Return the retried request with new token
                 return next.handle(this.addToken(request, token)).subscribe(observer);
-              } else {
-                // If refresh fails, redirect to login
-                this.authService.signOut();
-                observer.error('Token refresh failed');
               }
-            } else {
-              // If refresh fails, redirect to login
               this.authService.signOut();
-              observer.error('Token refresh failed');
+              return observer.error('Token refresh failed');
             }
+            this.authService.signOut();
+            return observer.error('Token refresh failed');
           },
           error => {
             this.isRefreshing = false;
             this.authService.signOut();
-            observer.error(error);
+            return observer.error(error);
           }
         );
+        return () => {};
       });
     } else {
       // For subsequent requests that fail while refresh is in progress

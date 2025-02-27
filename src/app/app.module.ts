@@ -12,7 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //header
 import { HeaderComponent } from './header/header.component';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 
 // modal controller
 import { ModalComponent } from './services/modal-controller/modal.component';
@@ -20,7 +20,7 @@ import { ModalComponent } from './services/modal-controller/modal.component';
 @NgModule({
   declarations: [AppComponent, HeaderComponent, ModalComponent],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideHttpClient()],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticatorResponse, multi: true }, provideHttpClient()],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

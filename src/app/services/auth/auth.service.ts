@@ -42,33 +42,28 @@ export class AuthService {
   async refreshToken() {
     // get the refresh token
     const refresh_token = this.getRefreshToken();
-
-    // if the refresh token exists, try to refresh the token
-    if (refresh_token) {
-      try {
-        const observable = this.http.post<TokenResponse>(
-          'https://portal.toverland.nl/auth/jwt/refresh/',
-          { refresh: refresh_token },
-          { observe: 'response' }
-        );
-
-        const response = await lastValueFrom(observable);
-
-        if (response.status >= 200 && response.status <= 299) {
-          // body could be null, so we need to check if it exists
-          this.saveToken(response?.body?.access?? '');
-          return true;
-        } else {
-          console.error('Error refreshing token:', response);
-          return false;
-        }
-      } catch (error) {
-        console.error('Error refreshing token:', error);
-        return false;
-      }
-    } 
-    else {
+    // if there is no refresh token
+    if (!refresh_token) {
       return false;
+    }
+    try {
+      const response = await lastValueFrom(this.http.post<TokenResponse>(
+        'https://portal.toverland.nl/auth/jwt/refresh/',
+        { refresh: refresh_token },
+        { observe: 'response' }
+      ));
+      
+      if(response.status >= 200 && response.status <= 299 && response.body && response.body.access) {
+        this.saveToken(response.body.access);
+        return true;
+      }
+      console.error('Error refreshing token:', response.body);
+      return false;
+
+    } catch (error) {
+      console.error('Error refreshing token:', error);
+      return false;
+      
     }
   }
 
@@ -98,47 +93,46 @@ export class AuthService {
         }
       }
     } catch (error) {
+      console.error('Error verifying token:', error);
       return false;
     }
   }
 
   // Sign in
-  async signIn(username: string, password: string) {
-
-    const observable = this.http
-      .post<create>(
+  async signIn(username: string, password: string): Promise<boolean> {
+    try {
+      const response = await lastValueFrom(this.http.post<any>(
         'https://portal.toverland.nl/auth/jwt/create/',
         { username, password },
         { observe: 'response' }
-      )
- 
-      const res = await lastValueFrom(observable);
-
-        try {
-          if (res.status <= 200 || res.status <= 299) {
-            this.saveToken(res?.body?.access?? '');
-            this.saveRefreshToken(res?.body?.refresh?? '');
-            this.isAuthenticated.next(true);
-            this.router.navigateByUrl('/home');
-          } else {
-            this.isAuthenticated.next(false);
-            console.error('Error logging in' + res.body);
-          }
-        } catch (error) {
-          console.error('Error logging in' + error);
-          this.isAuthenticated.next(false);
-        }
-
+      ));
+      
+      if (response.status >= 200 && response.status <= 299 && response.body) {
+        this.saveToken(response.body.access); 
+        this.saveRefreshToken(response.body.refresh);
+        this.isAuthenticated.next(true);
+        this.router.navigateByUrl('/home');
+        return true;
+      } else {
+        console.error('Error logging in', response.body);
+        this.isAuthenticated.next(false);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error logging in', error);
+      this.isAuthenticated.next(false);
+      return false;
+    }
   }
 
   // Sign out
   async signOut() {
     localStorage.clear();
     this.isAuthenticated.next(false);
-    // Navigate to sign-in
     this.router.navigateByUrl('/signin');
   }
 
+  // Token storage
   saveToken(token: string) {
     return localStorage.setItem('token', token);
   }
@@ -154,4 +148,5 @@ export class AuthService {
   getRefreshToken() {
     return localStorage.getItem('refresh_token');
   }
+
 }

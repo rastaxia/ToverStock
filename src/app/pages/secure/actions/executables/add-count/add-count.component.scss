@@ -1,3 +1,7 @@
 ion-button{
     margin: 20px;
 }
+
+ion-item{
+    --inner-border-width: 0;
+}

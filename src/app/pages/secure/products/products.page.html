@@ -1,73 +1,87 @@
 <ion-content class="ion-padding">
-  <ion-item class="searchContainer">
-    <ion-searchbar
-      (ionInput)="search($event)"
-      placeholder="Zoek: Beschrijving, Artikel code, PLU"
-    ></ion-searchbar>
-  </ion-item>
-
-  <div class="loader" *ngIf="isLoading">
-    <ion-label>Loading....</ion-label>
-    <ion-spinner name="circular"></ion-spinner>
-  </div>
-
-  <ng-container *ngIf="!isLoading">
-    <!-- make this a ng for -->
-    @for (article of articles; track $index; let index = $index) {
-    <ion-card
-      (click)="openArticle(article.id)"
-      [ngClass]="{'first-card': index === 0}"
-    >
-      <div class="product-photo">
-        <img
-          alt="product-foto"
-          src="{{article.image ? article.image : 'https://ionicframework.com/docs/img/demos/card-media.png'}}"
-        />
+  <ion-grid>
+    <!-- search bar -->
+    <ion-row>
+      <ion-item class="searchContainer">
+        <ion-label position="stacked">Zoek product(en):</ion-label>
+        <ion-searchbar
+          (ionInput)="search($event)"
+          placeholder="Beschrijving, Artikel code, PLU"
+        ></ion-searchbar>
+      </ion-item>
+    </ion-row>
+    <!-- loading -->
+    <ion-row>
+      <div class="loader" *ngIf="isLoading">
+        <ion-label>Loading....</ion-label>
+        <ion-spinner name="circular"></ion-spinner>
       </div>
+    </ion-row>
 
+    <ion-row>
+      <ng-container *ngIf="!isLoading">
+        <!-- make this a ng for -->
+        @for (article of articles; track $index; let index = $index) {
+        <ion-card
+          (click)="openArticle(article.id)"
+          [ngClass]="{'first-card': index === 0}"
+        >
+          <ion-grid>
+            <ion-row>
+              <div class="product-photo">
+                <img
+                  alt="product-foto"
+                  src="{{article.image ? article.image : 'https://ionicframework.com/docs/img/demos/card-media.png'}}"
+                />
+              </div>
+            </ion-row>
+            <ion-card-content>
+              <ion-row>
+                <p>
+                  <b> Naam: </b>
+                  {{article.description}}
+                </p>
+              </ion-row>
+              <ion-row>
+                <p *ngIf="article.barcode">
+                  <b> Barcode: </b>
+                  {{article.barcode}}
+                </p>
+              </ion-row>
+              <ion-row>
+                <p *ngIf="article.new_stock">
+                  <b> Aantal: </b>
+                  {{article.new_stock}}
+                </p>
+              </ion-row>
+              <ion-row>
+                <p *ngIf="article.articleCode">
+                  <b> Artikel code: </b>
+                  {{article.articleCode}}
+                </p>
+              </ion-row>
+            </ion-card-content>
+          </ion-grid>
+        </ion-card>
+        }
+      </ng-container>
+    </ion-row>
+    <!-- no product found -->
+    <ion-row>
+      <ng-container *ngIf="!isLoading && articles.length === 0">
+        <ion-card class="noProd">
+          <ion-card-content>
+            <ion-card-title>Geen producten gevonden</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </ion-row>
 
-        <ion-card-content>
-          <p>
-            <b>
-              Naam: 
-            </b>
-            {{article.description}}             
-          </p> 
-          <p *ngIf="article.barcode">
-            <b>
-              Barcode: 
-            </b>
-            {{article.barcode}}
-          </p>
-          <p *ngIf="article.new_stock">
-            <b>
-              Aantal: 
-            </b>
-            {{article.new_stock}}
-          </p>
-          <p *ngIf="article.articleCode">
-            <b>
-              Artikel code: 
-            </b>  
-            {{article.articleCode}}
-          </p>
-        </ion-card-content>
-    </ion-card>
-    }
-  </ng-container>
-
-  <ng-container *ngIf="!isLoading && articles.length === 0">
-    <ion-card class="noProd">
-      <ion-card-content>
-        <ion-card-title>Geen producten gevonden</ion-card-title>
-      </ion-card-content>
-    </ion-card>
-  </ng-container>
-
-  <ion-infinite-scroll (ionInfinite)="onScroll($event)">
-    <ion-infinite-scroll-content
-      loadingText="Bezig met laden..."
-      loadingSpinner="bubbles"
-    ></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="onScroll($event)" *ngIf="!isLoading">
+      <ion-infinite-scroll-content
+        loadingText="Bezig met laden..."
+        loadingSpinner="bubbles"
+      ></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-grid>
 </ion-content>

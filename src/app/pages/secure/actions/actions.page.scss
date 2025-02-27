@@ -1,3 +1,28 @@
+ion-card{
+    margin: 0 16px;
+}
+
+ion-list{
+    width: 100%;
+    margin: 16px 0; 
+}
+
+ion-row{
+    margin-bottom: 16px;
+    justify-content: center;
+}
+
+.scanButton{
+    ion-icon{
+        margin-right: 8px;
+    }
+    margin: 16px 0;
+}
+
+ion-item{
+    width: 100%;
+}
+
 .dynamicForm{
-    height: 60vh;
+    width: 100%;
 }

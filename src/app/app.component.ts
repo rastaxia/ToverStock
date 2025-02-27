@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
   hideHeader = false;
 
   constructor(
-    private alertController: AlertController,
     private config: Config,
     private platform: Platform,
     private router: Router,
@@ -59,14 +58,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  async presentAlert(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Scan ontvangen!',
-      message: message,
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
+
 
   
 

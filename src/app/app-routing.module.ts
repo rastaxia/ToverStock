@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { PublicGuard } from './guards/public.guard';
+import { initialAuthCheckGuard } from './guards/initial-auth-check.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home', 
-    pathMatch: 'full',
-    data: { hideHeader: true },
+    canActivate: [initialAuthCheckGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'signin'
+      }
+    ]
   },
   {
     path: '',
@@ -18,16 +23,13 @@ const routes: Routes = [
   {
     path: 'signin',
     loadChildren: () => import('./pages/public/sign-in/sign-in.module').then(m => m.SignInPageModule),
-    // canActivate: [PublicGuard], // Prevent for signed in users
     data: { hideHeader: true },
   },
   {
-    path:'forgot-password',
+    path: 'forgot-password',
     loadChildren: () => import('./pages/public/forgot-pw/forgot-pw.module').then(m => m.ForgotPwPageModule),
-    canActivate: [PublicGuard], // Prevent for signed in users
     data: { hideHeader: true },
   },
-  
 ];
 @NgModule({
   imports: [

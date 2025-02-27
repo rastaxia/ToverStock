@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 interface TokenResponse {
   access: string;
   status: number;
 }
 
-interface create{
+interface create {
   refresh: string;
   access: string;
 }
@@ -17,7 +18,13 @@ interface create{
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private router: Router, private http: HttpClient) {}
+  private isAlertShowing = false;
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private alertController: AlertController
+  ) {}
 
   // Auth state
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
@@ -33,7 +40,7 @@ export class AuthService {
       return true;
     } else {
       this.isAuthenticated.next(false);
-      this.signOut();
+      await this.showVerificationFailedAlert();
       return false;
     }
   }
@@ -47,23 +54,28 @@ export class AuthService {
       return false;
     }
     try {
-      const response = await lastValueFrom(this.http.post<TokenResponse>(
-        'https://portal.toverland.nl/auth/jwt/refresh/',
-        { refresh: refresh_token },
-        { observe: 'response' }
-      ));
-      
-      if(response.status >= 200 && response.status <= 299 && response.body && response.body.access) {
+      const response = await lastValueFrom(
+        this.http.post<TokenResponse>(
+          'https://portal.toverland.nl/auth/jwt/refresh/',
+          { refresh: refresh_token },
+          { observe: 'response' }
+        )
+      );
+
+      if (
+        response.status >= 200 &&
+        response.status <= 299 &&
+        response.body &&
+        response.body.access
+      ) {
         this.saveToken(response.body.access);
         return true;
       }
       console.error('Error refreshing token:', response.body);
       return false;
-
     } catch (error) {
       console.error('Error refreshing token:', error);
       return false;
-      
     }
   }
 
@@ -71,13 +83,14 @@ export class AuthService {
   async verifyToken() {
     try {
       const token = localStorage.getItem('token');
-      // if there is no token
       if (!token) {
-        return this.refreshToken();
-      } 
-      // if there is a token
-      else 
-      {
+        const refreshResult = await this.refreshToken();
+        if (!refreshResult) {
+          await this.showVerificationFailedAlert();
+          return false;
+        }
+        return refreshResult;
+      } else {
         const observable = this.http.post(
           'https://portal.toverland.nl/auth/jwt/verify/',
           { token },
@@ -86,14 +99,18 @@ export class AuthService {
         const response = await lastValueFrom(observable);
         if (response.status >= 200 && response.status <= 299) {
           return true;
-        } 
-        else 
-        {
-          return await this.refreshToken();
+        } else {
+          const refreshResult = await this.refreshToken();
+          if (!refreshResult) {
+            await this.showVerificationFailedAlert();
+            return false;
+          }
+          return refreshResult;
         }
       }
     } catch (error) {
       console.error('Error verifying token:', error);
+      await this.showVerificationFailedAlert();
       return false;
     }
   }
@@ -101,14 +118,16 @@ export class AuthService {
   // Sign in
   async signIn(username: string, password: string): Promise<boolean> {
     try {
-      const response = await lastValueFrom(this.http.post<any>(
-        'https://portal.toverland.nl/auth/jwt/create/',
-        { username, password },
-        { observe: 'response' }
-      ));
-      
+      const response = await lastValueFrom(
+        this.http.post<any>(
+          'https://portal.toverland.nl/auth/jwt/create/',
+          { username, password },
+          { observe: 'response' }
+        )
+      );
+
       if (response.status >= 200 && response.status <= 299 && response.body) {
-        this.saveToken(response.body.access); 
+        this.saveToken(response.body.access);
         this.saveRefreshToken(response.body.refresh);
         this.isAuthenticated.next(true);
         this.router.navigateByUrl('/home');
@@ -149,4 +168,31 @@ export class AuthService {
     return localStorage.getItem('refresh_token');
   }
 
+  // Alert
+  async showVerificationFailedAlert() {
+    if (this.isAlertShowing) {
+      return; // Don't show another alert if one is already showing
+    }
+
+    this.isAlertShowing = true;
+    const alert = await this.alertController.create({
+      header: 'Verificatie mislukt',
+      message: 'Je sessie is verlopen. Log opnieuw in om door te gaan.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.signOut();
+            this.isAlertShowing = false;
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+
+    // Also handle if the alert is dismissed by clicking outside
+    await alert.onDidDismiss();
+    this.isAlertShowing = false;
+  }
 }

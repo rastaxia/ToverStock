@@ -60,28 +60,26 @@ function handleError(
               return;
             }
           }
-          // If refresh fails, show error
+          // Refresh mislukt: log de gebruiker uit
           authService.showVerificationFailedAlert();
+          authService.signOut();
           observer.error('Token refresh failed');
         },
         error => {
           isRefreshing = false;
           authService.showVerificationFailedAlert();
+          authService.signOut();
           observer.error(error);
         }
       );
     });
   }
 
-  // For subsequent requests that fail while refresh is in progress
   return refreshTokenSubject.pipe(
-    // Wait until refreshTokenSubject has a non-null value
     filter(token => token !== null),
-    // Take only the first emission
     take(1),
-    // Use the new token to retry the request
-    switchMap(token => {
-      return next(addToken(request, token as string));
-    })
+    switchMap(token => next(addToken(request, token as string)))
   );
 }
+
+

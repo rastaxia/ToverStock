@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { jwtDecode } from 'jwt-decode';
 
 interface TokenResponse {
   access: string;
@@ -12,6 +13,10 @@ interface TokenResponse {
 interface create {
   refresh: string;
   access: string;
+}
+
+interface JwtPayload {
+  exp: number;
 }
 
 @Injectable({
@@ -47,11 +52,9 @@ export class AuthService {
 
   // handles the token and refreshes it if needed
   async refreshToken() {
-    // get the refresh token
     const refresh_token = this.getRefreshToken();
-    // if there is no refresh token
     if (!refresh_token) {
-      return false;
+      return false; // No refresh token available
     }
     try {
       const response = await lastValueFrom(
@@ -69,51 +72,67 @@ export class AuthService {
         response.body.access
       ) {
         this.saveToken(response.body.access);
-        return true;
+        return true; // Successfully refreshed token
       }
       console.error('Error refreshing token:', response.body);
-      return false;
+      return false; // Refresh token failed
     } catch (error) {
       console.error('Error refreshing token:', error);
-      return false;
+      return false; // Error occurred during refresh
     }
   }
 
-  // checks if the token is still valid
-  async verifyToken() {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        const refreshResult = await this.refreshToken();
-        if (!refreshResult) {
-          await this.showVerificationFailedAlert();
-          return false;
-        }
-        return refreshResult;
-      } else {
-        const observable = this.http.post(
-          'https://portal.toverland.nl/auth/jwt/verify/',
-          { token },
-          { observe: 'response' }
-        );
-        const response = await lastValueFrom(observable);
-        if (response.status >= 200 && response.status <= 299) {
-          return true;
-        } else {
-          const refreshResult = await this.refreshToken();
-          if (!refreshResult) {
-            await this.showVerificationFailedAlert();
-            return false;
-          }
-          return refreshResult;
-        }
-      }
-    } catch (error) {
-      console.error('Error verifying token:', error);
+
+  
+// checks if the token is still valid
+async verifyToken() { 
+  const token = localStorage.getItem('token');
+  if (!token) {
+    await this.showVerificationFailedAlert();
+    await this.signOut();
+    return false;
+  }
+
+  // Decode token om de expiry te checken
+  try {
+    const decoded: JwtPayload = jwtDecode(token);
+    const now = Math.floor(Date.now() / 1000);
+    if (decoded.exp < now) {
+      console.warn('Token verlopen, zonder API-call.');
       await this.showVerificationFailedAlert();
+      await this.signOut();
       return false;
     }
+  } catch (error) {
+    console.error('Fout bij het decoderen van de token:', error);
+    await this.showVerificationFailedAlert();
+    await this.signOut();
+    return false;
   }
+
+  // Als de token lokaal nog geldig lijkt, doe dan de API-call om dit te bevestigen
+  try {
+    const response = await lastValueFrom(
+      this.http.post(
+        'https://portal.toverland.nl/auth/jwt/verify/',
+        { token },
+        { observe: 'response' }
+      )
+    );
+    if (response.status >= 200 && response.status < 300) {
+      return true;
+    }
+  } catch (error) {
+    console.error('Token verificatie mislukt:', error);
+  }
+
+  // API geeft 401 of een andere fout: token ongeldig/expired
+  await this.showVerificationFailedAlert();
+  await this.signOut();
+  return false;
+}
+
+
 
   // Sign in
   async signIn(username: string, password: string): Promise<boolean> {
@@ -130,6 +149,7 @@ export class AuthService {
         this.saveToken(response.body.access);
         this.saveRefreshToken(response.body.refresh);
         this.isAuthenticated.next(true);
+        localStorage.removeItem('verificationAlertShown');
         this.router.navigateByUrl('/home');
         return true;
       } else {
@@ -146,9 +166,10 @@ export class AuthService {
 
   // Sign out
   async signOut() {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
     this.isAuthenticated.next(false);
-    this.router.navigateByUrl('/signin');
+    await this.router.navigateByUrl('/signin');
   }
 
   // Token storage
@@ -170,11 +191,22 @@ export class AuthService {
 
   // Alert
   async showVerificationFailedAlert() {
+    // Check if we've shown the alert in this session
+    const alertShownTimestamp = localStorage.getItem('verificationAlertShown');
+    const now = Date.now();
+    
+    // If we've shown the alert in the last 5 minutes, don't show it again
+    if (alertShownTimestamp && (now - parseInt(alertShownTimestamp)) < 300000) {
+      return;
+    }
+
     if (this.isAlertShowing) {
-      return; // Don't show another alert if one is already showing
+      return;
     }
 
     this.isAlertShowing = true;
+    localStorage.setItem('verificationAlertShown', now.toString());
+    
     const alert = await this.alertController.create({
       header: 'Verificatie mislukt',
       message: 'Je sessie is verlopen. Log opnieuw in om door te gaan.',
@@ -188,10 +220,8 @@ export class AuthService {
         }
       ]
     });
-  
-    await alert.present();
 
-    // Also handle if the alert is dismissed by clicking outside
+    await alert.present();
     await alert.onDidDismiss();
     this.isAlertShowing = false;
   }

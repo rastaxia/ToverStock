@@ -72,13 +72,13 @@ export class ActionsPage implements OnInit {
   async cameraScan() {
     // gets a barcode from the camera
 
-    // const result = await CapacitorBarcodeScanner.scanBarcode({
-    //   hint: CapacitorBarcodeScannerTypeHint.ALL}
-    // )
-    // this.scannedCode = result.ScanResult;
+    const result = await CapacitorBarcodeScanner.scanBarcode({
+      hint: CapacitorBarcodeScannerTypeHint.ALL}
+    )
+    this.scannedCode = result.ScanResult;
 
     //hard coded for testing
-    this.scannedCode = '800089975445';
+    // this.scannedCode = '800089975445';
 
     this.getProductByBarcode(this.scannedCode);
   }

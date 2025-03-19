@@ -18,11 +18,6 @@ export class CountService {
     count: number,
     extra_info: string
   ) {
-    //header
-    const headers = new HttpHeaders({
-      Authorization: `JWT ${this.authService.getToken()}`,
-    });
-
     // body
     const body = {
       article: productID,
@@ -30,11 +25,12 @@ export class CountService {
       stock: count,
       extra_info: extra_info,
     };
-
     try {
       // wait 5 seconds before actually doing the call
       const response = await lastValueFrom(
-        this.http.post(this.url, body, { headers })
+        this.http.post(this.url, body, { headers: {
+          Authorization: `JWT ${this.authService.getToken()}`
+        } })
       );
       return response;
     } catch (error) {

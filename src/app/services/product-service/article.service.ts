@@ -22,7 +22,6 @@ export class ArticleService {
     });
   }
 
-  // THIS WLL GET FIXED NOT WORKING FOR NOW
   // get Articles by barcode
   async getArticleByBarcode(barcode: string) {
     return this.http.get(this.url + 'find-by-barcode/' + barcode + '/', {

@@ -14,6 +14,11 @@ export function AuthInterceptor(
 ): Observable<HttpEvent<unknown>> {
   const authService = inject(AuthService);
   
+  // Skip auth for weather API
+  if (request.url.includes("api/opening_times/today") || request.url.includes("api/v1/weather")) {
+    return next(request); 
+  }
+
   // Add token to request if it exists
   const token = authService.getToken();
   if (token) {

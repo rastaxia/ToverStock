@@ -1,18 +1,23 @@
 <ion-content class="ion-padding">
-  <!-- if opening time -->
-  <ion-item>
-    <h3>Het park is open om:</h3>
-    <!-- <h2>{{openingTime}}</h2> -->
-  </ion-item>
-  <!-- if no opening time -->
-  <ion-item>
-    <h3>Vandaag zijn we gesloten</h3>
-  </ion-item>
+  <!--opening time -->
+  <ion-card  *ngIf="openingTimes" class="ion-padding infoContainer">
+      <p class="title">Operationele uren</p>
+      <br>
+      <p class="information">Van {{openingTimes}} tot {{closingTimes}}</p>
+  </ion-card>
+
+  <ion-card *ngIf="!openingTimes">
+      <p>Vandaag zijn we gesloten</p>
+  </ion-card>
   <!-- weer-->
-  <ion-item>
-    <h3>De weersvoorspelling voor vandaag:</h3>
-    <!-- <h2>{{weather}}</h2> -->
-  </ion-item>
+  <ion-card class="ion-padding infoContainer"> 
+    <p class="title">Weersvoorspelling:</p>
+    <p class="weatherInfo">
+      <img src="{{weatherIcon}}" alt="weatherIcon" />
+      {{temperature}} | {{weatherStatus}}
+    </p>
+  </ion-card>
+  <!-- store info -->
   <ion-item>
     <h3>Open winkels:</h3>
     <!-- Name | Time -->

@@ -33,7 +33,6 @@
     "@ionic/angular": "^8.0.0",
     "@micro-sentry/angular": "^7.1.1",
     "capacitor-datawedge": "^0.3.4",
-    "dotenv": "^16.4.7",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",

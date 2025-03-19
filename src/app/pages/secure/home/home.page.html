@@ -1,9 +1,9 @@
 <ion-content class="ion-padding">
   <!--opening time -->
   <ion-card  *ngIf="openingTimes" class="ion-padding infoContainer">
-      <p class="title">Operationele uren</p>
+      <p class="title">Het park is open van:</p>
       <br>
-      <p class="information">Van {{openingTimes}} tot {{closingTimes}}</p>
+      <p class="information">{{openingTimes}} tot {{closingTimes}}</p>
   </ion-card>
 
   <ion-card *ngIf="!openingTimes">

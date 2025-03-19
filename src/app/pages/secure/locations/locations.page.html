@@ -1,4 +1,18 @@
 <ion-content class="ion-padding">
-  <h1>Welkom op de locatie pagina</h1>
-  <p>Dit is een basis pagina zonder echte inhoud.</p>
+  <ion-item>
+    <ion-select
+      placeholder="Select location"
+      (ionChange)="onLocationChange($event)"
+    >
+      <div slot="label">
+        <ion-label>Locatie:</ion-label>
+      </div>
+
+      <ion-select-option
+        *ngFor="let location of locationList; let index = index"
+        [value]="location['id']"
+        >{{location['name']}}</ion-select-option
+      >
+    </ion-select>
+  </ion-item>
 </ion-content>

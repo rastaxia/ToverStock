@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { LocationsService } from 'src/app/services/product-service/locations.service';
 
 @Component({
   standalone: false,
@@ -8,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationsPage implements OnInit {
 
-  constructor() { }
+  locationList: any = [];
+  selectedLocation: number;
+
+  constructor(
+    private locations: LocationsService
+  ) { }
 
   ngOnInit() {
+    this.getLocations();
+  }
+  
+  // Gets all locations
+  async getLocations() {
+    try {
+      const response: any = await firstValueFrom(
+        await this.locations.getLocations()
+      );
+      this.locationList = response.results;
+    } catch (error) {
+      console.log('Error:', error);
+    }
   }
 
+  onLocationChange(event: any) {
+    this.selectedLocation = event.target.value;
+  }
 }

@@ -6,11 +6,11 @@
       <p class="information">{{openingTimes}} tot {{closingTimes}}</p>
   </ion-card>
 
-  <ion-card *ngIf="!openingTimes">
-      <p>Vandaag zijn we gesloten</p>
+  <ion-card *ngIf="!openingTimes" class="ion-padding infoContainer">
+      <p class="information">Vandaag zijn we gesloten</p>
   </ion-card>
   <!-- weer-->
-  <ion-card class="ion-padding infoContainer"> 
+  <ion-card class="ion-padding infoContainer" *ngIf="temperature"> 
     <p class="title">Weersvoorspelling:</p>
     <p class="weatherInfo">
       <img src="{{weatherIcon}}" alt="weatherIcon" />
@@ -18,8 +18,8 @@
     </p>
   </ion-card>
   <!-- store info -->
-  <ion-item>
-    <h3>Open winkels:</h3>
+  <ion-card class="ion-padding infoContainer">
+    <p class="title">Open winkels:</p>
     <!-- Name | Time -->
-  </ion-item>
+  </ion-card>
 </ion-content>

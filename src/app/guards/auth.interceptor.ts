@@ -67,13 +67,11 @@ function handleError(
           }
           // Refresh mislukt: log de gebruiker uit
           authService.showVerificationFailedAlert();
-          authService.signOut();
           observer.error('Token refresh failed');
         },
         error => {
           isRefreshing = false;
           authService.showVerificationFailedAlert();
-          authService.signOut();
           observer.error(error);
         }
       );

@@ -85,32 +85,13 @@ export class AuthService {
 
   
 // checks if the token is still valid
-async verifyToken() { 
+async verifyToken() {
   const token = localStorage.getItem('token');
   if (!token) {
     await this.showVerificationFailedAlert();
-    await this.signOut();
     return false;
   }
-
-  // Decode token om de expiry te checken
-  try {
-    const decoded: JwtPayload = jwtDecode(token);
-    const now = Math.floor(Date.now() / 1000);
-    if (decoded.exp < now) {
-      console.warn('Token verlopen, zonder API-call.');
-      await this.showVerificationFailedAlert();
-      await this.signOut();
-      return false;
-    }
-  } catch (error) {
-    console.error('Fout bij het decoderen van de token:', error);
-    await this.showVerificationFailedAlert();
-    await this.signOut();
-    return false;
-  }
-
-  // Als de token lokaal nog geldig lijkt, doe dan de API-call om dit te bevestigen
+  
   try {
     const response = await lastValueFrom(
       this.http.post(
@@ -119,16 +100,21 @@ async verifyToken() {
         { observe: 'response' }
       )
     );
+    
     if (response.status >= 200 && response.status < 300) {
       return true;
     }
   } catch (error) {
     console.error('Token verificatie mislukt:', error);
+    // Probeer de token te vernieuwen voordat je uitlogt
+    const refreshSuccess = await this.refreshToken();
+    if (refreshSuccess) {
+      return true;
+    }
   }
-
-  // API geeft 401 of een andere fout: token ongeldig/expired
+  
+  // Als zowel verificatie als refresh mislukt zijn:
   await this.showVerificationFailedAlert();
-  await this.signOut();
   return false;
 }
 

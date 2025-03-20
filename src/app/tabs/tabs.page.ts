@@ -9,8 +9,10 @@ import { ActionSheetController } from '@ionic/angular';
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage {
+  isKeyboardVisible = false;
+
   constructor(private actionSheetController: ActionSheetController,
-    private router: Router
+    private router: Router,
     ) {}
 
   // Select action

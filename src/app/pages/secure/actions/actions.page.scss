@@ -1,15 +1,11 @@
-ion-card{
-    margin: 0 16px;
-}
 
-ion-list{
-    width: 100%;
-    margin: 16px 0; 
-}
+
 
 ion-row{
-    margin-bottom: 16px;
     justify-content: center;
+    ion-card{
+        width: 100%;
+    }
 }
 
 .scanButton{
@@ -25,4 +21,8 @@ ion-item{
 
 .dynamicForm{
     width: 100%;
+}
+
+.scannedImage{
+    border-radius: 25px;
 }

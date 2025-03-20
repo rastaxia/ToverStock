@@ -21,6 +21,7 @@ register();
 })
 export class AppComponent implements OnInit {
   hideHeader = false;
+  contentLoaded = false;
 
   constructor(
     private config: Config,

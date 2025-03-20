@@ -5,19 +5,8 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'signin'
-      }
-    ]
-  },
-  {
-    path: '',
     loadChildren: () => import('./pages/secure/secure.module').then(m => m.SecureModule),
-    canActivate: [AuthGuard] // Secure all child pages
+    canActivate: [AuthGuard] // Zorgt ervoor dat alleen ingelogde gebruikers hier komen
   },
   {
     path: 'signin',
@@ -30,6 +19,7 @@ const routes: Routes = [
     data: { hideHeader: true },
   },
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

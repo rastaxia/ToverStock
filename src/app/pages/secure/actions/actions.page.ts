@@ -40,10 +40,20 @@ export class ActionsPage implements OnInit {
     DataWedge.addListener('scan', (event) => {
       this.zebraScan(event.data);
     });
+    // this.selectedAction = localStorage.getItem('selectedAction') || '';
+    // this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0');
   }
 
+  // Action chn
   onLocationChange(event: any) {
     this.selectedLocation = event.target.value;
+    this.saveLocation(event.target.value);
+  }
+
+  onActionChange(event: any) {
+    this.selectedAction = event.target.value;
+    this.saveSelection(event.target.value);
+
   }
 
   // Gets all locations
@@ -72,13 +82,13 @@ export class ActionsPage implements OnInit {
   async cameraScan() {
     // gets a barcode from the camera
 
-    const result = await CapacitorBarcodeScanner.scanBarcode({
-      hint: CapacitorBarcodeScannerTypeHint.ALL}
-    )
-    this.scannedCode = result.ScanResult;
+    // const result = await CapacitorBarcodeScanner.scanBarcode({
+    //   hint: CapacitorBarcodeScannerTypeHint.ALL}
+    // )
+    // this.scannedCode = result.ScanResult;
 
     //hard coded for testing
-    // this.scannedCode = '800089975445';
+    this.scannedCode = '800089975445';
 
     this.getProductByBarcode(this.scannedCode);
   }
@@ -106,7 +116,6 @@ export class ActionsPage implements OnInit {
     // Keep selected action and location
     const currentAction = this.selectedAction;
     const currentLocation = this.selectedLocation;
-    console.log('Location:', currentLocation)
 
     // Reset other values
     this.scannedCode = '';
@@ -117,4 +126,13 @@ export class ActionsPage implements OnInit {
     this.selectedAction = currentAction;
     this.selectedLocation = currentLocation;
   }
+
+  saveSelection(action: string){
+    localStorage.setItem('selectedAction', action);
+  }
+
+  saveLocation(location: number){
+    localStorage.setItem('selectedLocation', location.toString())
+  }
+
 }

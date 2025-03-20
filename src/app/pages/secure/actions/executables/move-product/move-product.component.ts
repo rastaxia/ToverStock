@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from 'src/app/services/product-service/article.service';
 import { CountService } from 'src/app/services/product-service/count.service';
 import { LoadingController } from '@ionic/angular';
+import { firstValueFrom } from 'rxjs';
+import { LocationsService } from 'src/app/services/product-service/locations.service';
 
 @Component({
   standalone: false,
@@ -18,7 +20,8 @@ export class MoveProductComponent  implements OnInit {
     private ngZone: NgZone,
     private countService: CountService,
     private articleService: ArticleService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private locations: LocationsService
   ) {
     this.moveForm = this.fb.group({
       count: ['', [Validators.required, Validators.min(1)]],
@@ -27,6 +30,37 @@ export class MoveProductComponent  implements OnInit {
     });
    }
 
-  ngOnInit() {}
+   secondLocation: number;
+   locationList = [];
+
+  ngOnInit() {
+    this.ngZone.run(() => {
+      this.getLocations();
+    });
+  }
+
+  // Gets all locations
+  async getLocations() {
+    try {
+      const response: any = await firstValueFrom(
+        await this.locations.getLocations()
+      );
+      this.locationList = response.results;
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+    // Action chn
+    locationChange(event: any) {
+      this.secondLocation = event.target.value;
+    }
+
+    // Move product
+    async moveProduct() {
+      
+    }
+
+
 
 }

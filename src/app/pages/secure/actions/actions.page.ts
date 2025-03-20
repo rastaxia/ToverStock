@@ -3,10 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { LocationsService } from 'src/app/services/product-service/locations.service';
 import { DataWedge } from 'capacitor-datawedge';
-import {
-  CapacitorBarcodeScanner,
-  CapacitorBarcodeScannerTypeHint,
-} from '@capacitor/barcode-scanner';
 import { ArticleService } from 'src/app/services/product-service/article.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 

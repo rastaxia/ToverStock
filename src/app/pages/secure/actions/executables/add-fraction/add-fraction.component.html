@@ -1,8 +1,9 @@
-<form [formGroup]="fractionForm">
+<form [formGroup]="fractionForm" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="stacked">Count</ion-label>
       <input
         type="number"
+        oninput="this.value = -Math.abs(this.value)"
         [formControlName]="'count'"
         placeholder="Enter count"
       />

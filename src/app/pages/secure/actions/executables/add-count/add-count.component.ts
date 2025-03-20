@@ -7,10 +7,6 @@ import { timeout } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
-/**
- * Component for adding count to inventory items
- * Handles form submission and API interaction for updating item counts
- */
 @Component({
   standalone: false,
   selector: 'app-add-count',
@@ -54,72 +50,39 @@ export class AddCountComponent implements OnInit {
    */
   onSubmit() {
     if (this.countForm.valid) {
-      this.verifyAndAddCount();
+      this.addCount();
     }
   }
 
-  /**
-   * Verifies user authentication before proceeding with count addition
-   * Shows loading spinner during verification process
-   */
-  async verifyAndAddCount() {
+  async addCount() {
     const loading = await this.loadingController.create({
       cssClass: 'default-loading',
       message: 'Verifiëren...',
       spinner: 'crescent',
     });
-
+  
     await loading.present();
-
+  
     try {
-      // Verify user's authentication token
+      // Verifieer token voordat de telling wordt toegevoegd
       const isVerified = await this.authService.verifyToken();
-      
-      // If not verified, stop process and return
       if (!isVerified) {
         await loading.dismiss();
-        return; // AuthService will handle redirect to login
+        return; // AuthService zal de gebruiker omleiden naar login
       }
-
-      // If verified, proceed with adding count
-      await this.addCount();
-      loading.dismiss();
-      
-    } catch (error) {
-      console.error('Verification error:', error);
-      await loading.dismiss();
-    }
-  }
-
-  /**
-   * Handles the actual count addition process
-   * Retrieves form values and makes API call to update count
-   */
-  async addCount() {
-    // Get saved article details
-    const article = await this.articleService.getSavedArticle();
-    const count = this.countForm.get('count')?.value;
-    const comment = this.countForm.get('comment')?.value;
-
-    // Show loading spinner during API call
-    const loading = await this.loadingController.create({
-      cssClass: 'default-loading',
-      message: 'Actie verwerken...',
-      spinner: 'crescent',
-    });
-
-    await loading.present();
-
-    try {
-      // Make API call to update count
-      await this.countService.addCount(
-        article.itemID, 
-        article.locationID, 
-        count, 
-        comment
-      );
-
-      // Show success message
+  
+      // Haal artikelgegevens op
+      const article = await this.articleService.getSavedArticle();
+      const count = this.countForm.get('count')?.value;
+      const comment = this.countForm.get('comment')?.value;
+  
+      // Update de laadtekst voor beter UX
+      loading.message = 'Actie verwerken...';
+  
+      // API call om de telling toe te voegen
+      await this.countService.addCount(article.itemID, article.locationID, count, comment);
+  
+      // Success melding
       await this.toastService.presentToast(
         'Succes',
         'Telling is succesvol toegevoegd',
@@ -127,17 +90,15 @@ export class AddCountComponent implements OnInit {
         'success',
         2000
       );
-
-      // Reset form
+  
+      // Reset formulier en clear event emitten
       this.countForm.reset();
-      
-      // Emit event to clear parent page
       this.clearPageEvent.emit();
-
+  
     } catch (error) {
       console.error('error: ', error);
-      
-      // Show error message
+  
+      // Toon foutmelding
       await this.toastService.presentToast(
         'Fout',
         'Er is een fout opgetreden bij het toevoegen van de telling',
@@ -149,4 +110,5 @@ export class AddCountComponent implements OnInit {
       await loading.dismiss();
     }
   }
+  
 }

@@ -40,8 +40,8 @@ export class ActionsPage implements OnInit {
     DataWedge.addListener('scan', (event) => {
       this.zebraScan(event.data);
     });
-    // this.selectedAction = localStorage.getItem('selectedAction') || '';
-    // this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0');
+    this.selectedAction = localStorage.getItem('selectedAction') || '';
+    this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0');
   }
 
   // Action chn

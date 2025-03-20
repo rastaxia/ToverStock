@@ -154,6 +154,8 @@ async verifyToken() {
   async signOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('selectedAction');
+    localStorage.removeItem('selectedLocation');
     this.isAuthenticated.next(false);
     await this.router.navigateByUrl('/signin');
   }

@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-// Capacitor
 import { SplashScreen } from '@capacitor/splash-screen';
-import { Capacitor } from '@capacitor/core';
-import { StatusBar, Style } from '@capacitor/status-bar';
-
-import { Platform, Config, AlertController } from '@ionic/angular';
-
+import { Platform, Config, ModalController } from '@ionic/angular';
 import {register} from 'swiper/element/bundle';
-
+import { ScanService } from './services/scan.service';
 import { DataWedge } from 'capacitor-datawedge';
+
 
 register();
 
@@ -28,13 +24,24 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private scanService: ScanService,
+    private zone: NgZone,
+    private modalCtrl: ModalController
    
   ) {
     this.initializeApp();
   }
   
   ngOnInit(): void {
-    console.log('AppComponent ngOnInit');
+    DataWedge.addListener('scan', (event) => {
+      this.zone.run(() => {
+        this.modalCtrl.dismiss();
+        const scannedCode = event.data;
+        this.scanService.setScan(scannedCode);
+        this.router.navigate(['/actions']);
+      });
+    });
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         let currentRoute = this.activatedRoute.root;

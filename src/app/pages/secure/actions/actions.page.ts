@@ -5,6 +5,7 @@ import { LocationsService } from 'src/app/services/product-service/locations.ser
 import { DataWedge } from 'capacitor-datawedge';
 import { ArticleService } from 'src/app/services/product-service/article.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { ScanService } from 'src/app/services/scan.service';
 
 @Component({
   standalone: false,
@@ -26,19 +27,34 @@ export class ActionsPage implements OnInit {
     private articleService: ArticleService,
     private locations: LocationsService,
     private zone: NgZone,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private scanService: ScanService  
   ) {
   }
 
   ngOnInit() {
     this.getLocations();
-    // datawedge scan
-    DataWedge.addListener('scan', (event) => {
-      this.zebraScan(event.data);
-    });
+
     this.selectedAction = localStorage.getItem('selectedAction') || '';
     this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0');
+
+    this.scanService.scan$.subscribe((scannedCode) => {
+      if (scannedCode) {
+        this.zone.run(() => {
+          
+          this.scannedCode = scannedCode;
+          this.getProductByBarcode(this.scannedCode);
+        });
+      }
+    });
   }
+
+  // When entering the page 
+  ionViewWillEnter() {
+    this.selectedAction = localStorage.getItem('selectedAction') || '';
+    this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0', 10);
+  }
+  
 
   // Action chn
   onLocationChange(event: any) {
@@ -69,7 +85,6 @@ export class ActionsPage implements OnInit {
     // zone is used to update the UI
     this.zone.run(() => {
       this.scannedCode = code;
-      
     });
     this.getProductByBarcode(this.scannedCode);
   }

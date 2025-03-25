@@ -11,9 +11,10 @@ import { ActionSheetController } from '@ionic/angular';
 export class TabsPage {
   isKeyboardVisible = false;
 
-  constructor(private actionSheetController: ActionSheetController,
-    private router: Router,
-    ) {}
+  constructor(
+    private actionSheetController: ActionSheetController,
+    private router: Router
+  ) {}
 
   // Select action
   async selectAction() {
@@ -26,20 +27,31 @@ export class TabsPage {
           icon: 'reader-outline',
           handler: () => {
             this.router.navigateByUrl('/actions');
+            localStorage.setItem('selectedAction', 'add-count');
           },
         },
         {
           text: 'Levering toevoegen',
           icon: 'bag-add-outline',
           handler: () => {
-            // Put in logic ...
+            this.router.navigateByUrl('/actions');
+            localStorage.setItem('selectedAction', 'add-delivery');
           },
         },
         {
           text: 'Breuk toevoegen',
           icon: 'remove-circle-outline',
           handler: () => {
-            // Put in logic ...
+            this.router.navigateByUrl('/actions');
+            localStorage.setItem('selectedAction', 'add-fraction');
+          },
+        },
+        {
+          text: 'Verplaatsing toevoegen',
+          icon: 'swap-horizontal-outline',
+          handler: () => {
+            this.router.navigateByUrl('/actions');
+            localStorage.setItem('selectedAction', 'move-product');
           },
         },
         // {
@@ -49,13 +61,6 @@ export class TabsPage {
         //     // Put in logic ...
         //   },
         // },
-        {
-          text: 'Verplaatsing toevoegen',
-          icon: 'swap-horizontal-outline',
-          handler: () => {
-            // Put in logic ...
-          },
-        },
         {
           text: 'Cancel',
           icon: 'close',

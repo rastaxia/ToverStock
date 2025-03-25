@@ -1,15 +1,11 @@
 <form [formGroup]="countForm" (ngSubmit)="onSubmit()">
   <ion-item>
-    <input
-      type="number"
-      [formControlName]="'count'"
-      placeholder="Aantal"
-    />
+    <input type="number" [formControlName]="'count'" placeholder="Aantal" />
   </ion-item>
-
   <ion-item>
     <input type="text" placeholder="Opmerking" [formControlName]="'comment'" />
   </ion-item>
+  <hr />
   <ion-button expand="block" type="submit" [disabled]="!countForm.valid">
     Submit
   </ion-button>

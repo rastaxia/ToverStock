@@ -1,6 +1,5 @@
 <form [formGroup]="fractionForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label position="stacked">Count</ion-label>
       <input
         type="number"
         oninput="this.value = -Math.abs(this.value)"
@@ -8,11 +7,13 @@
         placeholder="Enter count"
       />
     </ion-item>
+    <div *ngIf="fractionForm.get('count')?.invalid && fractionForm.get('count')?.touched">
+      <p class="error-message">Aantal mag niet leeg zijn</p>
+    </div>
     <ion-item>
-      <ion-label position="stacked">Comment</ion-label>
       <input type="text" placeholder="Comment" [formControlName]="'comment'" />
     </ion-item>
-  
+    <hr>
     <ion-button expand="block" type="submit" [disabled]="!fractionForm.valid">
       Submit
     </ion-button>

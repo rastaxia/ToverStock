@@ -1,38 +1,27 @@
 <form [formGroup]="moveForm">
   <ion-item>
     <ion-select
-      placeholder="Select location"
+      placeholder="Verplaatsing naar deze location"
       (ionChange)="locationChange($event)"
     >
-      <div slot="label">
-        <ion-label>Locatie:</ion-label>
-      </div>
-
       <ion-select-option
         *ngFor="let location of locationList; let index = index"
         [value]="location['id']"
-        >{{location['name']}}</ion-select-option
+        >{{ location["name"] }}</ion-select-option
       >
     </ion-select>
   </ion-item>
-      
-      <ion-item>
-      <ion-label position="stacked">Count</ion-label>
-      <input
-        type="number"
-        [formControlName]="'count'"
-        placeholder="Enter count"
-      />
-      </ion-item>
-      
-      <ion-item>
-        <ion-label position="stacked">Comment</ion-label>
-        <input type="text" placeholder="Comment" [formControlName]="'comment'" />
-      </ion-item>
-      <hr>
-  
-    <ion-button expand="block" type="submit" [disabled]="!moveForm.valid">
-      Submit
-    </ion-button>
-  </form>
-  
+
+  <ion-item>
+    <input type="number" [formControlName]="'count'" placeholder="Aantal" />
+  </ion-item>
+
+  <ion-item>
+    <input type="text" placeholder="Opmerking" [formControlName]="'comment'" />
+  </ion-item>
+  <hr />
+
+  <ion-button expand="block" type="submit" [disabled]="!moveForm.valid">
+    Submit
+  </ion-button>
+</form>

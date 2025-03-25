@@ -1,43 +1,65 @@
 <ion-content>
-
   <div class="ion-padding ion-full-height ion-flex ion-flex-center">
-
     <div class="logo-container">
-      <img src="../../../../assets/images/logo-toverland-blue.png" alt="">
+      <img src="../../../../assets/images/logo-toverland-blue.png" alt="" />
       <p>Meld je aan met je account.</p>
     </div>
 
     <form class="form-default" [formGroup]="signIn_form" (submit)="signIn()">
-
       <ion-list class="item-card-list" lines="none">
         <ion-item>
-          <ion-label color="tertiary" position="stacked">Gebruikersnaam</ion-label>
-          <ion-input formControlName="username" autocomplete="off"
-            placeholder="Je gebruikersnaam"></ion-input>
+          <ion-label color="tertiary" position="stacked"
+            >Gebruikersnaam</ion-label
+          >
+          <ion-input
+            formControlName="username"
+            autocomplete="off"
+            placeholder="Je gebruikersnaam"
+          ></ion-input>
+          <div
+            *ngIf="signIn_form.get('username')?.invalid && signIn_form.get('username')?.touched"
+          >
+            <p class="error-message">Vul je gebruikersnaam in</p>
+          </div>
         </ion-item>
 
         <ion-item class="ion-margin-top-small">
           <ion-label color="tertiary" position="stacked">Wachtwoord</ion-label>
-          <ion-input formControlName="password" type="password" placeholder="Je wachtwoord"></ion-input>
+          <ion-input
+            formControlName="password"
+            type="password"
+            placeholder="Je wachtwoord"
+          ></ion-input>
+          <div
+          *ngIf="signIn_form.get('password')?.invalid && signIn_form.get('password')?.touched"
+        >
+          <p class="error-message">Vul je wachtwoord in</p>
+        </div>
         </ion-item>
 
-          <ion-button class="wwForgot" fill="clear" size="small" routerLink="/forgot-password">Wachtwoord vergeten</ion-button>
-
+        <ion-button
+          class="wwForgot"
+          fill="clear"
+          size="small"
+          routerLink="/forgot-password"
+          >Wachtwoord vergeten</ion-button
+        >
       </ion-list>
 
-      <ion-button class="ion-margin-top " type="submit" expand="block" color="primary">
+      <ion-button
+        class="ion-margin-top"
+        type="submit"
+        expand="block"
+        color="primary"
+      >
         Aanmelden
       </ion-button>
-
     </form>
-
 
     <div class="ion-text-center ion-margin-top">
       <ion-text color="medium">
         <small>&copy; {{current_year}} Attractiepark Toverland.</small>
       </ion-text>
     </div>
-
   </div>
-
 </ion-content>

@@ -1,14 +1,17 @@
-
 <ion-header collapse="fade" id="main-content">
   <ion-toolbar>
     <ion-buttons>
-      <ion-button>
-        <ion-icon slot="icon-only" name="list-circle-outline"></ion-icon>
-      </ion-button>
-      </ion-buttons>
+      <ion-menu-toggle menu="leftMenu">
+        <ion-button>
+          <ion-icon slot="icon-only" name="list-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+
     <ion-title> Home </ion-title>
+
     <ion-buttons slot="primary">
-      <ion-menu-toggle>
+      <ion-menu-toggle menu="rightMenu">
         <ion-button>
           <ion-icon slot="icon-only" name="cog-outline"></ion-icon>
         </ion-button>
@@ -17,7 +20,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-menu contentId="main-content" side="end">
+<!-- count menu -->
+<ion-menu contentId="main-content" side="start" menuId="leftMenu">
+  <ion-header collapse="fade" [translucent]="true">
+    <ion-toolbar>
+      <ion-title class="settingTitle"> Verwerking </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    
+  </ion-content>
+</ion-menu>
+
+<!-- Settings menu -->
+<ion-menu contentId="main-content" side="end" menuId="rightMenu">
   <ion-header collapse="fade" [translucent]="true">
     <ion-toolbar>
       <ion-title class="settingTitle"> Instellingen </ion-title>
@@ -31,8 +48,7 @@
           class="avatar-icon-placeholder"
           name="person-circle"
           color="tertiary"
-        >
-        </ion-icon>
+        ></ion-icon>
       </ion-avatar>
       <p class="font-weight-500">Person Name</p>
       <ion-text color="medium">
@@ -41,21 +57,6 @@
     </div>
 
     <div class="ion-padding">
-      <!-- <ion-list-header class="ion-list-header-small">
-        <ion-label>Appearance</ion-label>
-      </ion-list-header>
-
-      <ion-list class="list-custom" lines="full">
-        <ion-item detail="false">
-          <ion-icon slot="start" color="medium" name="contrast"></ion-icon>
-          <ion-toggle t [(ngModel)]="paletteToggle" (ionChange)="toggleChange($event)" justify="space-between"
-          >Dark Mode</ion-toggle
-        >
-        </ion-item>
-      </ion-list>
-      <hr class="hr-large" /> -->
-
-
       <ion-list class="list-custom" lines="full" (click)="signOut()">
         <ion-item button detail="false">
           <ion-icon slot="start" color="danger" name="log-out"></ion-icon>

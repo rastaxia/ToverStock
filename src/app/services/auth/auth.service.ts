@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, timeout } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { jwtDecode } from 'jwt-decode';
 
@@ -62,9 +62,11 @@ export class AuthService {
           'https://portal.toverland.nl/auth/jwt/refresh/',
           { refresh: refresh_token },
           { observe: 'response' }
+        ).pipe(
+          timeout(5000) // Wacht maximaal 5 seconden op een antwoord
         )
       );
-
+  
       if (
         response.status >= 200 &&
         response.status <= 299 &&
@@ -73,9 +75,10 @@ export class AuthService {
       ) {
         this.saveToken(response.body.access);
         return true; // Successfully refreshed token
+      } else {
+        console.error('Error refreshing token:', response.body);
+        return false; // Refresh token failed
       }
-      console.error('Error refreshing token:', response.body);
-      return false; // Refresh token failed
     } catch (error) {
       console.error('Error refreshing token:', error);
       return false; // Error occurred during refresh

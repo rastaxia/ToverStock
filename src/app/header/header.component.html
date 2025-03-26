@@ -67,13 +67,13 @@
             <p><b>Naam:</b> {{mutation.article}}</p>
           </ion-item>
           <ion-item>
-            <p><b>Type</b> Levering</p>
+            <p><b>Type</b> {{mutation.stock_change_type}}</p>
           </ion-item>
           <ion-item>
-            <p><b>Locatie</b> locatie naam</p>
+            <p><b>Locatie</b> {{mutation.location}}</p>
           </ion-item>
           <ion-item>
-            <p><b>Aantal</b> 2.00</p>
+            <p><b>Aantal</b> {{mutation.stock_change}}</p>
           </ion-item>
           <ion-item *ngIf="mutation.extra_info">
             <p><b>Opmerking</b> {{mutation.extra_info}}</p>

@@ -26,7 +26,6 @@ export class CountService {
       extra_info: extra_info,
     };
     try {
-      // wait 5 seconds before actually doing the call
       const response = await lastValueFrom(
         this.http.post(this.url, body, { headers: {
           Authorization: `JWT ${this.authService.getToken()}`

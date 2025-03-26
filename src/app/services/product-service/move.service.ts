@@ -14,8 +14,8 @@ export class MoveService {
 
   url = 'https://portal.toverland.nl/api/v1/stock/stock-changes/';
 
-  // add to count
-  async addDelivery(
+  // Move product
+  async moveProduct(
     productID: number,
     locationID: number,
     count: number,

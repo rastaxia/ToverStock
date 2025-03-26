@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons>
       <ion-menu-toggle menu="leftMenu">
-        <ion-button>
+        <ion-button (click)="getData()">
           <ion-icon slot="icon-only" name="list-circle-outline"></ion-icon>
         </ion-button>
       </ion-menu-toggle>
@@ -27,9 +27,68 @@
       <ion-title class="settingTitle"> Verwerking </ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content class="ion-padding">
+    <ion-segment>
+      <ion-segment-button value="count" content-id="count">
+        <ion-label>Tellingen</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mutations" content-id="mutations">
+        <ion-label>Mutaties</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-segment-view>
+      <ion-segment-content id="count">
+        <ion-card *ngFor="let count of counts">
+          <ion-item>
+            <p><b>Naam:</b> {{count.article}}</p>
+          </ion-item>
+          <ion-item>
+            <p><b>Type:</b> telling</p>
+          </ion-item>
+          <ion-item>
+            <p><b>Locatie:</b> {{count.location}}</p>
+          </ion-item>
+          <ion-item>
+            <p><b>Aantal:</b> {{count.stock}}</p>
+          </ion-item>
+          <ion-item *ngIf="count.extra_info">
+            <p><b>Opmerking:</b> {{count.extra_info}}</p>
+          </ion-item>
+        </ion-card>
+        <ion-card *ngIf="counts.length == 0">
+          <ion-item>
+            <p>Geen tellingen gevonden</p>
+          </ion-item>
+        </ion-card>
+      </ion-segment-content>
+      <ion-segment-content id="mutations">
+        <ion-card *ngFor="let mutation of mutations" >
+          <ion-item>
+            <p><b>Naam:</b> {{mutation.article}}</p>
+          </ion-item>
+          <ion-item>
+            <p><b>Type</b> Levering</p>
+          </ion-item>
+          <ion-item>
+            <p><b>Locatie</b> locatie naam</p>
+          </ion-item>
+          <ion-item>
+            <p><b>Aantal</b> 2.00</p>
+          </ion-item>
+          <ion-item *ngIf="mutation.extra_info">
+            <p><b>Opmerking</b> {{mutation.extra_info}}</p>
+          </ion-item>
+        </ion-card>
+        <ion-card *ngIf="mutations.length == 0">
+          <ion-item>
+            <p>Geen mutaties gevonden</p>
+          </ion-item>
+        </ion-card>
+      </ion-segment-content>
+    </ion-segment-view>
 
-  <ion-content>
-    
+
+
   </ion-content>
 </ion-menu>
 

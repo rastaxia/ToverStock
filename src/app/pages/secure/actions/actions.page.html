@@ -70,7 +70,7 @@
           </ion-item>
           <div *ngIf="scannedProduct">
             <ion-item> <b>Naam: </b> {{ scannedProduct['description']}}</ion-item>
-            <ion-item> <b>Product code: </b> {{scannedProduct['code']}}</ion-item>
+            <ion-item> <b>Product code: </b> {{ scannedProduct['code']}}</ion-item>
             <br />
             <img
               class="scannedImage ion-padding"
@@ -98,4 +98,5 @@
       </ion-row>
     </ion-col>
   </ion-grid>
+
 </ion-content>

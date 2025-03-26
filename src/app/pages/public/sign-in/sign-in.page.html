@@ -29,7 +29,8 @@
             formControlName="password"
             type="password"
             placeholder="Je wachtwoord"
-          ></ion-input>
+          >
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
           <div
           *ngIf="signIn_form.get('password')?.invalid && signIn_form.get('password')?.touched"
         >

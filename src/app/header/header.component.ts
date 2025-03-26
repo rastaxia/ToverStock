@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   async getData() {
     await this.getAllCounts();
     await this.getMutations();
-    console.log(this.mutations);
   }
 
   async getAllCounts() {

@@ -4,7 +4,7 @@
       <!-- action select and location select -->
       <ion-row>
         <ion-card>
-        <ion-list>
+          <ion-list>
             <!-- action select -->
             <ion-item>
               <ion-select
@@ -69,8 +69,12 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="scannedProduct">
-            <ion-item> <b>Naam: </b> {{ scannedProduct['description']}}</ion-item>
-            <ion-item> <b>Product code: </b> {{ scannedProduct['code']}}</ion-item>
+            <ion-item>
+              <b>Naam: </b> {{ scannedProduct['description']}}</ion-item
+            >
+            <ion-item>
+              <b>Product code: </b> {{ scannedProduct['code']}}</ion-item
+            >
             <br />
             <img
               class="scannedImage ion-padding"
@@ -91,12 +95,20 @@
             *ngSwitchCase="'add-count'"
             (clearPageEvent)="clearPage()"
           ></app-add-count>
-          <app-add-delivery *ngSwitchCase="'add-delivery'"></app-add-delivery>
-          <app-add-fraction *ngSwitchCase="'add-fraction'"></app-add-fraction>
-          <app-move-product *ngSwitchCase="'move-product'"></app-move-product>
+          <app-add-delivery
+            *ngSwitchCase="'add-delivery'"
+            (clearPageEvent)="clearPage()"
+          ></app-add-delivery>
+          <app-add-fraction
+            *ngSwitchCase="'add-fraction'"
+            (clearPageEvent)="clearPage()"
+          ></app-add-fraction>
+          <app-move-product
+            *ngSwitchCase="'move-product'"
+            (clearPageEvent)="clearPage()"
+          ></app-move-product>
         </div>
       </ion-row>
     </ion-col>
   </ion-grid>
-
 </ion-content>

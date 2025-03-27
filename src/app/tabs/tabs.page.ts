@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
+import { ActionService } from '../services/product-service/action.service';
 
 @Component({
   standalone: false,
@@ -13,7 +14,8 @@ export class TabsPage {
 
   constructor(
     private actionSheetController: ActionSheetController,
-    private router: Router
+    private router: Router,
+    private actionService: ActionService
   ) {}
 
   // Select action
@@ -26,32 +28,32 @@ export class TabsPage {
           text: 'Telling toevoegen',
           icon: 'reader-outline',
           handler: () => {
+            this.actionService.setSelectedAction('add-count');
             this.router.navigateByUrl('/actions');
-            localStorage.setItem('selectedAction', 'add-count');
           },
         },
         {
           text: 'Levering toevoegen',
           icon: 'bag-add-outline',
           handler: () => {
+            this.actionService.setSelectedAction('add-delivery');
             this.router.navigateByUrl('/actions');
-            localStorage.setItem('selectedAction', 'add-delivery');
           },
         },
         {
           text: 'Breuk toevoegen',
           icon: 'remove-circle-outline',
           handler: () => {
+            this.actionService.setSelectedAction('add-fraction');
             this.router.navigateByUrl('/actions');
-            localStorage.setItem('selectedAction', 'add-fraction');
           },
         },
         {
           text: 'Verplaatsing toevoegen',
           icon: 'swap-horizontal-outline',
           handler: () => {
+            this.actionService.setSelectedAction('move-product');
             this.router.navigateByUrl('/actions');
-            localStorage.setItem('selectedAction', 'move-product');
           },
         },
         // {

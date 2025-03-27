@@ -66,9 +66,10 @@
               type="text"
               [(ngModel)]="scannedCode"
               placeholder="Voer hier je barcode handmatig in"
+              (keyup.enter)="getProductByBarcode(scannedCode)"
             ></ion-input>
           </ion-item>
-          <div *ngIf="scannedProduct">
+          <div class="itemInfo" *ngIf="scannedProduct">
             <ion-item>
               <b>Naam: </b> {{ scannedProduct['description']}}</ion-item
             >
@@ -76,7 +77,7 @@
               <b>Product code: </b> {{ scannedProduct['code']}}</ion-item
             >
             <br />
-            <img
+            <img *ngIf="scannedProduct['image']"
               class="scannedImage ion-padding"
               src="https://portal.toverland.nl{{scannedProduct['image']}}"
               alt="product image"

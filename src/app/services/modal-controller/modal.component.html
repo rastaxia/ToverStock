@@ -111,7 +111,16 @@
         <b> Verkoopprijs: </b> &#8364;{{ article.sale_price }}
       </ion-label>
     </ion-item> -->
-    
-  </ion-list>
+    <br>
+    <div class="buttonContainer">
+
+      <iom-buttons>
+        <ion-button (click)="changeArticle()">
+          <ion-icon name="create-outline"></ion-icon>
+          Telling of mutatie toevoegen
+        </ion-button>
+      </iom-buttons>
+    </div>
+    </ion-list>
   </ion-card> 
 </ion-content>

@@ -322,6 +322,8 @@
   :root {
     --animate-duration: .25s;
     --ion-mode: ios !important;
+    --ion-safe-area-bottom: 0px;
+
   }
   
   /* Loading controller */
@@ -523,12 +525,13 @@
   
   /* Fab button */
   ion-fab.ion-fab-custom {
-    position: inherit;
-    bottom: 20px;
+    position: fixed !important;
+    bottom: 20px !important;
     background: rgba(var(--ion-color-primary-rgb), .1);
     padding: 8px;
     border-radius: 50%;
   }
+  
     
   ion-fab.ion-fab-custom ion-fab-button {
     width: 46px;

@@ -10,3 +10,12 @@
         object-fit: contain;
     }
 }
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+
+    ion-icon{
+        margin: 0 1rem;
+    }
+}

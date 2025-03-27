@@ -33,6 +33,14 @@ export class AddFractionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fractionForm.get('count')?.valueChanges.subscribe(value => {
+      if (value !== null && value !== '' && !isNaN(value)) {
+        const negativeValue = -Math.abs(value); 
+        if (value !== negativeValue) {
+          this.fractionForm.get('count')?.setValue(negativeValue, { emitEvent: false });
+        }
+      }
+    });
     this.ngZone.runOutsideAngular(() => {
       this.fractionForm.valueChanges.subscribe(() => {
         this.ngZone.run(() => {});

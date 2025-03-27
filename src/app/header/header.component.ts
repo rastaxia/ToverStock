@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { VerwerkingService } from '../services/verwerking.service';
-import { firstValueFrom, from, lastValueFrom } from 'rxjs';
+import { filter, firstValueFrom, from, lastValueFrom } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -12,13 +13,35 @@ import { firstValueFrom, from, lastValueFrom } from 'rxjs';
 export class HeaderComponent implements OnInit {
   counts: any = [];
   mutations: any = [];
+  userInfo: any = [];
+  pageTitle: string = 'Home';
 
   constructor(
     private authService: AuthService,
-    private verwerkingService: VerwerkingService
+    private verwerkingService: VerwerkingService,
+    private router: Router
   ) {}
 
-  ngOnInit() {}
+      // Define route-to-title mapping
+      private routeTitles: { [key: string]: string } = {
+        '/home': 'Home',
+        '/locations': 'Locaties',
+        '/products': 'Producten',
+        '/count': 'Telling',
+        '/actions': 'Acties',
+      };
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      // Get the current URL path
+      const path = event.urlAfterRedirects;
+
+      // Update title based on the route
+      this.pageTitle = this.routeTitles[path] || 'App';
+    });
+  }
 
   signOut() {
     this.authService.signOut();
@@ -26,8 +49,7 @@ export class HeaderComponent implements OnInit {
 
   async getData() {
     await this.getAllCounts();
-    await this.getMutations();
-    console.log('counts:', this.mutations);
+    await this.getMutations(); 
   }
 
   async getAllCounts() {
@@ -72,5 +94,10 @@ export class HeaderComponent implements OnInit {
         break;
       }
     }
+  }
+
+
+  async getUserInfo() {
+    this.userInfo = await this.authService.getUser();
   }
 }

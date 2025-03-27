@@ -216,4 +216,14 @@ async verifyToken() {
     await alert.onDidDismiss();
     this.isAlertShowing = false;
   }
+
+  
+
+  async getUser() {
+    return lastValueFrom(this.http.get("https://portal.toverland.nl/auth/users/me/", {
+      headers: {
+        Authorization: `JWT ${this.getToken()}`
+      }
+    }));
+  }
 }

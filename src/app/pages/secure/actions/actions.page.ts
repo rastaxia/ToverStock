@@ -1,11 +1,13 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
+import { filter, firstValueFrom } from 'rxjs';
 import { LocationsService } from 'src/app/services/product-service/locations.service';
-import { DataWedge } from 'capacitor-datawedge';
 import { ArticleService } from 'src/app/services/product-service/article.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ScanService } from 'src/app/services/scan.service';
+import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from '@capacitor/barcode-scanner';
+import { ActionService } from 'src/app/services/product-service/action.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -14,6 +16,7 @@ import { ScanService } from 'src/app/services/scan.service';
   styleUrls: ['./actions.page.scss'],
 })
 export class ActionsPage implements OnInit {
+
   form: FormGroup;
   selectedAction: string;
   locationList = [];
@@ -23,21 +26,26 @@ export class ActionsPage implements OnInit {
   productID: number | null;
   scannedProduct: any;
 
+
+
   constructor(
-    private articleService: ArticleService,
-    private locations: LocationsService,
     private zone: NgZone,
+    private scanService: ScanService,
+    private actionService: ActionService,
+    private locations: LocationsService,
+    private articleService: ArticleService,
     private toastService: ToastService,
-    private scanService: ScanService  
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
     this.getLocations();
-
     this.selectedAction = localStorage.getItem('selectedAction') || '';
     this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0');
-
+    this.actionService.selectedAction$.subscribe((action) => {
+      this.selectedAction = action;
+    });
     this.scanService.scan$.subscribe((scannedCode) => {
       if (scannedCode) {
         this.zone.run(() => {
@@ -47,14 +55,16 @@ export class ActionsPage implements OnInit {
         });
       }
     });
+
   }
 
   // When entering the page 
   ionViewWillEnter() {
     this.selectedAction = localStorage.getItem('selectedAction') || '';
     this.selectedLocation = parseInt(localStorage.getItem('selectedLocation') || '0', 10);
+
   }
-  
+
 
   // Action chn
   onLocationChange(event: any) {
@@ -92,14 +102,10 @@ export class ActionsPage implements OnInit {
   // Scan with camera
   async cameraScan() {
     // gets a barcode from the camera
-
-    // const result = await CapacitorBarcodeScanner.scanBarcode({
-    //   hint: CapacitorBarcodeScannerTypeHint.ALL}
-    // )
-    // this.scannedCode = result.ScanResult;
-
-    //hard coded for testing
-    this.scannedCode = '800089975445';
+    const result = await CapacitorBarcodeScanner.scanBarcode({
+      hint: CapacitorBarcodeScannerTypeHint.ALL}
+    )
+    this.scannedCode = result.ScanResult;
 
     this.getProductByBarcode(this.scannedCode);
   }

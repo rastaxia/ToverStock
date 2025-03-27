@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular'; 
 import { firstValueFrom } from 'rxjs';
 import { ArticleService } from 'src/app/services/product-service/article.service';
+import { ScanService } from '../scan.service';
 
 @Component({
   standalone: false,
@@ -15,7 +17,9 @@ export class ModalComponent  implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private articleService: ArticleService
+    private scanService: ScanService,
+    private router: Router,
+    private articleService: ArticleService  
   ) { }
 
   ngOnInit() {
@@ -31,4 +35,12 @@ export class ModalComponent  implements OnInit {
       const response = await firstValueFrom( await this.articleService.getArticle(this.id));
       this.article = response;
     }
+
+    async changeArticle() {
+      this.scanService.setScan(this.article.barcode);
+      this.closeModal();
+      this.router.navigateByUrl('/actions');
+    }
+
+
 }

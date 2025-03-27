@@ -8,11 +8,11 @@
       </ion-menu-toggle>
     </ion-buttons>
 
-    <ion-title> Home </ion-title>
+    <ion-title> {{pageTitle}} </ion-title>
 
     <ion-buttons slot="primary">
       <ion-menu-toggle menu="rightMenu">
-        <ion-button>
+        <ion-button (click)="getUserInfo()">
           <ion-icon slot="icon-only" name="cog-outline"></ion-icon>
         </ion-button>
       </ion-menu-toggle>
@@ -67,16 +67,16 @@
             <p><b>Naam:</b> {{mutation.article}}</p>
           </ion-item>
           <ion-item>
-            <p><b>Type</b> {{mutation.stock_change_type}}</p>
+            <p><b>Type:</b> {{mutation.stock_change_type}}</p>
           </ion-item>
           <ion-item>
-            <p><b>Locatie</b> {{mutation.location}}</p>
+            <p><b>Locatie:</b> {{mutation.location}}</p>
           </ion-item>
           <ion-item>
-            <p><b>Aantal</b> {{mutation.stock_change}}</p>
+            <p><b>Aantal:</b> {{mutation.stock_change}}</p>
           </ion-item>
           <ion-item *ngIf="mutation.extra_info">
-            <p><b>Opmerking</b> {{mutation.extra_info}}</p>
+            <p><b>Opmerking:</b> {{mutation.extra_info}}</p>
           </ion-item>
         </ion-card>
         <ion-card *ngIf="mutations.length == 0">
@@ -109,9 +109,9 @@
           color="tertiary"
         ></ion-icon>
       </ion-avatar>
-      <p class="font-weight-500">Person Name</p>
+      <p class="font-weight-500">{{userInfo.first_name}} {{userInfo.last_name}}</p>
       <ion-text color="medium">
-        <small>person&#64;email.com</small>
+        <small>{{userInfo.email}}</small>
       </ion-text>
     </div>
 

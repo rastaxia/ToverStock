@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { ParkService } from 'src/app/services/park.service';
+
+
 
 @Component({
   standalone: false,
@@ -15,47 +15,28 @@ export class HomePage implements OnInit {
   weatherStatus: string;
   temperature: string;
   weatherIcon: string;
+  shopInfo: any;
 
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private parkService: ParkService,
+    
+    ) {}
 
   ngOnInit(): void {
-    this.getWeather();
     this.getParkInfo();
   }
 
   async getParkInfo() {
-    try {
-      const response: any = await lastValueFrom(
-        this.http.get('https://portal.toverland.nl/api/opening_times/today/', {
-          headers: {
-            Authorization: `Bearer  ${environment.TVLKey}`,
-          },
-        })
-      );
-      this.openingTimes = response[0].opening_time.slice(0, 5);
-      this.closingTimes = response[0].closing_time.slice(0, 5);
-    } catch (error) {
-      console.error('Fout bij ophalen tijden:', error);
-    }
+    const parkTimes = await this.parkService.openingTimes();
+    const weather = await this.parkService.getWeather();
+    const shops = await this.parkService.getShopInfo();
+    this.openingTimes = parkTimes.opening_times?.slice(0, 5);
+    this.closingTimes = parkTimes.closing_times?.slice(0, 5);
+    this.weatherStatus = weather.detailed_status;
+    this.temperature = weather.temperature_str;
+    this.weatherIcon = weather.weather_icon_url;
+    this.shopInfo = shops;
   }
 
-  async getWeather() {
-    try {
-      const response: any = await firstValueFrom(
-        this.http.get('https://portal.toverland.nl/api/v1/weather/', {
-          headers: {
-            Authorization: `Bearer ${environment.TVLKey}`,
-          },
-        })
-      );
-      this.weatherStatus = response.detailed_status;
-      this.temperature = response.temperature_str;
-      this.weatherIcon = response.weather_icon_url
-      ;
-
-    } catch (error) {
-      console.error('Fout bij ophalen weer:', error);
-    }
-  }
 }

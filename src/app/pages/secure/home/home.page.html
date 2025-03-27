@@ -7,7 +7,7 @@
   </ion-card>
 
   <ion-card *ngIf="!openingTimes" class="ion-padding infoContainer">
-      <p class="information">Vandaag zijn we gesloten</p>
+      <p class="information">Vandaag zijn we gesloten.</p>
   </ion-card>
   <!-- weer-->
   <ion-card class="ion-padding infoContainer" *ngIf="temperature"> 
@@ -18,8 +18,16 @@
     </p>
   </ion-card>
   <!-- store info -->
-  <ion-card class="ion-padding infoContainer">
-    <p class="title">Open winkels:</p>
-    <!-- Name | Time -->
-  </ion-card>
+    <p class="shopTitle">Shop overzicht:</p>
+
+    <ion-card *ngFor="let shop of shopInfo" class="shopContainer">
+      <div class="shopImgContainer">
+        <img alt="Shop photo" src="{{shop.thumbnail}}" />
+      </div>
+
+      <div class="shopInfo">
+        <ion-label class="shopTitle">{{shop.name}}</ion-label>
+        <p class="shopTimes">{{shop.opening_times_start?.slice(0,5)}} tot {{shop.opening_times_end?.slice(0,5)}}</p>
+      </div>
+    </ion-card>
 </ion-content>

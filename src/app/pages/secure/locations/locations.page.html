@@ -15,4 +15,37 @@
       >
     </ion-select>
   </ion-item>
+  <br>
+    <ion-row>
+      <ng-container>
+        <ion-card *ngIf="selectedLocation"
+        >
+          <ion-grid>
+            <ion-row>
+              <div class="product-photo">
+                <img
+                  alt="product-foto"
+                  src='https://ionicframework.com/docs/img/demos/card-media.png'
+                />
+              </div>
+            </ion-row>
+            <ion-card-content>
+              <ion-row>
+                <p>
+                  <b> Naam: </b>
+                  Alpaca peter
+                </p>
+              </ion-row>
+              <ion-row>
+                <p>
+                  <b> Aantal: </b>
+                  200
+                </p>
+              </ion-row>
+            </ion-card-content>
+          </ion-grid>
+        </ion-card>
+        
+      </ng-container>
+    </ion-row>
 </ion-content>

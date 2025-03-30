@@ -36,4 +36,6 @@ export class LocationsPage implements OnInit {
   onLocationChange(event: any) {
     this.selectedLocation = event.target.value;
   }
+  
+
 }

@@ -5,7 +5,6 @@ import { Platform, Config, ModalController } from '@ionic/angular';
 import {register} from 'swiper/element/bundle';
 import { ScanService } from './services/scan.service';
 import { DataWedge } from 'capacitor-datawedge';
-import { Keyboard, KeyboardResize } from '@capacitor/keyboard';
 
 register();
 
@@ -30,10 +29,6 @@ export class AppComponent implements OnInit {
    
   ) {
     this.initializeApp();
-    this.platform.ready().then(() => {
-      Keyboard.setAccessoryBarVisible({isVisible: false});
-      Keyboard.setResizeMode({mode: 'none' as KeyboardResize});
-    });
   }
   
   ngOnInit(): void {

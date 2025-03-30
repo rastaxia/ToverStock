@@ -1,8 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
-import { ActionService } from '../services/product-service/action.service';4
+import { ActionService } from '../services/product-service/action.service';
+4;
 import { Keyboard } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   standalone: false,
@@ -20,20 +22,22 @@ export class TabsPage implements OnInit {
     private zone: NgZone
   ) {}
 
-ngOnInit(): void {
-    Keyboard.addListener('keyboardDidShow', () => {
-      this.zone.run(() => {
-      this.isKeyboardVisible = true;
+  
+  ngOnInit(): void {
+    if (Capacitor.isNativePlatform()) {
+      Keyboard.addListener('keyboardDidShow', () => {
+        this.zone.run(() => {
+          this.isKeyboardVisible = true;
+        });
       });
-    });
 
-    Keyboard.addListener('keyboardDidHide', () => {
-      this.zone.run(() => {
-      this.isKeyboardVisible = false;
+      Keyboard.addListener('keyboardDidHide', () => {
+        this.zone.run(() => {
+          this.isKeyboardVisible = false;
+        });
       });
-    });
+    }
   }
-
 
   // Select action
   async selectAction() {

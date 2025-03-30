@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom, timeout } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { jwtDecode } from 'jwt-decode';
+import { LoadingController } from '@ionic/angular';
 
 interface TokenResponse {
   access: string;
@@ -28,7 +29,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {}
 
   // Auth state
@@ -123,35 +125,36 @@ async verifyToken() {
 
 
 
-  // Sign in
-  async signIn(username: string, password: string): Promise<boolean> {
-    try {
-      const response = await lastValueFrom(
-        this.http.post<any>(
-          'https://portal.toverland.nl/auth/jwt/create/',
-          { username, password },
-          { observe: 'response' }
-        )
-      );
-
-      if (response.status >= 200 && response.status <= 299 && response.body) {
-        this.saveToken(response.body.access);
-        this.saveRefreshToken(response.body.refresh);
-        this.isAuthenticated.next(true);
-        localStorage.removeItem('verificationAlertShown');
-        this.router.navigateByUrl('/home');
-        return true;
-      } else {
-        console.error('Error logging in', response.body);
-        this.isAuthenticated.next(false);
-        return false;
-      }
-    } catch (error) {
-      console.error('Error logging in', error);
-      this.isAuthenticated.next(false);
+// Sign in
+async signIn(username: string, password: string): Promise<boolean> {
+  try {
+    const response = await lastValueFrom(
+      this.http.post<any>(
+        'https://portal.toverland.nl/auth/jwt/create/',
+        { username, password },
+        { observe: 'response' }
+      )
+    );
+    if (response.status >= 200 && response.status <= 299 && response.body) {
+      this.saveToken(response.body.access);
+      this.saveRefreshToken(response.body.refresh);
+      this.isAuthenticated.next(true);
+      localStorage.removeItem('verificationAlertShown');
+      this.router.navigateByUrl('/home');
+      return true;
+    } else {
+      await this.loadingController.dismiss();
+      await this.showLoginFailedAlert(); 
       return false;
     }
+  } catch (error: any) {
+    console.error('in this error', error);
+    await this.loadingController.dismiss();
+    await this.showLoginFailedAlert();
+    return false;
   }
+}
+
 
   // Sign out
   async signOut() {
@@ -182,11 +185,9 @@ async verifyToken() {
 
   // Alert
   async showVerificationFailedAlert() {
-    // Check if we've shown the alert in this session
     const alertShownTimestamp = localStorage.getItem('verificationAlertShown');
     const now = Date.now();
     
-    // If we've shown the alert in the last 5 minutes, don't show it again
     if (alertShownTimestamp && (now - parseInt(alertShownTimestamp)) < 300000) {
       return;
     }
@@ -216,7 +217,26 @@ async verifyToken() {
     await alert.onDidDismiss();
     this.isAlertShowing = false;
   }
-
+  
+  async showLoginFailedAlert() {
+    if (this.isAlertShowing) {
+      return;
+    }
+    this.isAlertShowing = true;
+    const alert = await this.alertController.create({
+      header: 'Inloggen mislukt',
+      message: 'Gebruikersnaam of wachtwoord onjuist. Probeer het opnieuw.',
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          this.isAlertShowing = false;
+        }
+      }]
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+    this.isAlertShowing = false;
+  }
   
 
   async getUser() {

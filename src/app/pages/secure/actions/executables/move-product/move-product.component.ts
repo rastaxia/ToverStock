@@ -102,8 +102,6 @@ async moveProduct() {
       comment
     );
 
-    // call 2 uitvoeren **ALLEEN ALS call 1 succesvol was**
-    // console.log(article.locationID);
     await this.moveService.moveProduct(
       article.itemID,
       article.locationID,

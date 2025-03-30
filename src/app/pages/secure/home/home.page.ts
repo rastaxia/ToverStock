@@ -29,7 +29,6 @@ export class HomePage implements OnInit {
 
   async getParkInfo() {
     const parkTimes = await this.parkService.openingTimes();
-    console.log(parkTimes);
     const weather = await this.parkService.getWeather();
     const shops = await this.parkService.getShopInfo();
     this.openingTimes = parkTimes[0].opening_time?.slice(0, 5);

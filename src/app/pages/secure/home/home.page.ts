@@ -29,10 +29,11 @@ export class HomePage implements OnInit {
 
   async getParkInfo() {
     const parkTimes = await this.parkService.openingTimes();
+    console.log(parkTimes);
     const weather = await this.parkService.getWeather();
     const shops = await this.parkService.getShopInfo();
-    this.openingTimes = parkTimes.opening_times?.slice(0, 5);
-    this.closingTimes = parkTimes.closing_times?.slice(0, 5);
+    this.openingTimes = parkTimes[0].opening_time?.slice(0, 5);
+    this.closingTimes = parkTimes[0].closing_time?.slice(0, 5);
     this.weatherStatus = weather.detailed_status;
     this.temperature = weather.temperature_str;
     this.weatherIcon = weather.weather_icon_url;

@@ -81,7 +81,7 @@ ngOnInit(): void {
         //   },
         // },
         {
-          text: 'Cancel',
+          text: 'Annuleer',
           icon: 'close',
           role: 'cancel',
         },

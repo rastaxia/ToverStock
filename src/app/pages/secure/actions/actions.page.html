@@ -8,29 +8,29 @@
             <!-- action select -->
             <ion-item>
               <ion-select
-                placeholder="Select action"
+                placeholder="Selecteer een actie"
                 (ionChange)="onActionChange($event)"
                 [(ngModel)]="selectedAction"
               >
                 <div slot="label">Actie:</div>
                 <ion-select-option value="add-count"
-                  >Add Count</ion-select-option
+                  >Telling</ion-select-option
                 >
                 <ion-select-option value="add-delivery"
-                  >Add Delivery</ion-select-option
+                  >Levering </ion-select-option
                 >
                 <ion-select-option value="add-fraction"
-                  >Add Fraction</ion-select-option
+                  >Breuk</ion-select-option
                 >
                 <ion-select-option value="move-product"
-                  >Move Product</ion-select-option
+                  >Verplaatsing</ion-select-option
                 >
               </ion-select>
             </ion-item>
             <!-- Location select -->
             <ion-item>
               <ion-select
-                placeholder="Select location"
+                placeholder="Selecteer een locatie"
                 (ionChange)="onLocationChange($event)"
                 [(ngModel)]="selectedLocation"
               >

@@ -31,7 +31,7 @@ export class MoveProductComponent  implements OnInit {
   ) {
     this.moveForm = this.fb.group({
       count: ['', [Validators.required, Validators.min(1)]],
-      // location2: ['', [Validators.required]],
+      location2: ['', [Validators.required]],
       comment: [''],
     });
    }
@@ -49,6 +49,14 @@ export class MoveProductComponent  implements OnInit {
     if (this.moveForm.valid) {
       this.moveProduct();
     }
+  }
+
+  customValidator(control: any) {
+    const value = control.value;
+    if (value && value.toString().length > 0) {
+      return null;
+    }
+    return {invalid: true};
   }
 
   // Gets all locations

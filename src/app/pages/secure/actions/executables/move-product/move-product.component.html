@@ -1,6 +1,7 @@
 <form [formGroup]="moveForm"  (ngSubmit)="onSubmit()">
   <ion-item>
     <ion-select
+    [formControlName]="'location2'" 
       placeholder="Verplaatsing naar deze location"
       (ionChange)="locationChange($event)"
     >

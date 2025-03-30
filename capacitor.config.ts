@@ -8,6 +8,14 @@ const config: CapacitorConfig = {
     keyboard: {
       resize: 'none',
     },
+    SplashScreen: {
+      launchShowDuration: 3000,
+      launchAutoHide: true,
+      backgroundColor: "#ffffff",
+      androidSplashResourceName: "splash",
+      androidScaleType: "CENTER_CROP",
+      showSpinner: false
+    }
   }
 };
 

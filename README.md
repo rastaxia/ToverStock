@@ -7,8 +7,8 @@
 - [Overzicht](#overzicht)
 - [Kenmerken](#kenmerken)
 - [Installatie](#installatie)
-- [Gebruik](#gebruik)
-- [Ontwikkeling](#ontwikkeling)
+- [App opstarten ](#app-opstarten )
+- [Stuctuur](#stuctuur)
 
 ## Overzicht
 

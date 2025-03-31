@@ -38,11 +38,15 @@ ToverStock is een moderne, responsieve applicatie ontwikkeld met Angular en Ioni
    git clone https://github.com/rastaxia/ToverStock.git
    cd ToverStock
    ```
-2. **Applicatie bouwen**
+2. **Packages download**
+```bash
+npm install
+```
+3. **Applicatie bouwen**
 ```bash
 ng build --prod
 ```
-3. **Assets kopiëren***
+4. **Assets kopiëren**
 ```bash
 npx cap copy
 ```

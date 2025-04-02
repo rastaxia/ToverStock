@@ -81,6 +81,7 @@ export class AddFractionComponent implements OnInit {
 
       // Haal artikelgegevens op
       const article = await this.articleService.getSavedArticle();
+      const location = await this.articleService.getSavedLocation();
       const count = this.fractionForm.get('count')?.value;
       const comment = this.fractionForm.get('comment')?.value;
 
@@ -89,8 +90,8 @@ export class AddFractionComponent implements OnInit {
 
       // API call om de telling toe te voegen
       await this.fractionService.addFraction(
-        article.itemID,
-        article.locationID,
+        article,
+        location,
         count,
         comment
       );

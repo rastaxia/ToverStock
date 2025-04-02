@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  TVLKey: 'Own Key'
+  TVLKey: 'Your Key here'
 
 };
 

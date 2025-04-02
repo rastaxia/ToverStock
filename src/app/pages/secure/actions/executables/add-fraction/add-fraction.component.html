@@ -3,12 +3,13 @@
       <input
         type="number"
         [formControlName]="'count'"
-        placeholder="Enter count"
+        placeholder="Aantal"
       />
+      <div *ngIf="fractionForm.get('count')?.invalid && fractionForm.get('count')?.touched">
+        <p class="error-message">Aantal mag niet leeg zijn</p>
+      </div>
     </ion-item>
-    <div *ngIf="fractionForm.get('count')?.invalid && fractionForm.get('count')?.touched">
-      <p class="error-message">Aantal mag niet leeg zijn</p>
-    </div>
+
     <ion-item>
       <input type="text" placeholder="Comment" [formControlName]="'comment'" />
     </ion-item>

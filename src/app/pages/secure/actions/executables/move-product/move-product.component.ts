@@ -95,24 +95,23 @@ async moveProduct() {
 
     // Haal artikelgegevens op
     const article = await this.articleService.getSavedArticle();
+    const location = await this.articleService.getSavedLocation();
     const count = this.moveForm.get('count')?.value;
     const comment = this.moveForm.get('comment')?.value;
 
     // Update de laadtekst voor beter UX
     loading.message = 'Actie verwerken...';
 
-    // call 1
-
     await this.moveService.moveProduct(
-      article.itemID,
+      article,
       this.secondLocation,
       count,
       comment
     );
 
     await this.moveService.moveProduct(
-      article.itemID,
-      article.locationID,
+      article,
+      location,
       -count,
       comment
     );

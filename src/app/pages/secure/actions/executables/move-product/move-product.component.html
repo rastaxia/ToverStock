@@ -12,11 +12,15 @@
       >
     </ion-select>
   </ion-item>
-
+  <div class="ion-padding" *ngIf="moveForm.get('location2')?.invalid && moveForm.get('location2')?.touched">
+    <p class="error-message">Locatie mag niet leeg zijn</p>
+  </div>
   <ion-item>
     <input type="number" [formControlName]="'count'" placeholder="Aantal" />
   </ion-item>
-
+  <div class="ion-padding" *ngIf="moveForm.get('count')?.invalid && moveForm.get('count')?.touched">
+    <p class="error-message">Aantal mag niet leeg zijn</p>
+  </div>
   <ion-item>
     <input type="text" placeholder="Opmerking" [formControlName]="'comment'" />
   </ion-item>

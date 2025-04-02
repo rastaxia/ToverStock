@@ -90,7 +90,7 @@
         <div
           class="dynamicForm"
           [ngSwitch]="selectedAction"
-          *ngIf="scannedProduct"
+          *ngIf="scannedProduct && selectedLocation"
         >
           <app-add-count
             *ngSwitchCase="'add-count'"

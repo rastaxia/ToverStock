@@ -1,7 +1,11 @@
 <form [formGroup]="countForm" (ngSubmit)="onSubmit()">
   <ion-item>
     <input type="number" [formControlName]="'count'" placeholder="Aantal" />
+
   </ion-item>
+  <div class="ion-padding" *ngIf="countForm.get('count')?.invalid && countForm.get('count')?.touched">
+    <p class="error-message">Aantal mag niet leeg zijn</p>
+  </div>
   <ion-item>
     <input type="text" placeholder="Opmerking" [formControlName]="'comment'" />
   </ion-item>

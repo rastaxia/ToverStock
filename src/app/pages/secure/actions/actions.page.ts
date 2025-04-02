@@ -49,7 +49,7 @@ export class ActionsPage implements OnInit {
     this.scanService.scan$.subscribe((scannedCode) => {
       if (scannedCode) {
         this.zone.run(() => {
-          
+          this.selectedAction = localStorage.getItem('selectedAction') || '';
           this.scannedCode = scannedCode;
           this.getProductByBarcode(this.scannedCode);
         });
@@ -69,6 +69,7 @@ export class ActionsPage implements OnInit {
   // Action chn
   onLocationChange(event: any) {
     this.selectedLocation = event.target.value;
+    this.articleService.saveLocation(this.selectedLocation);
     this.saveLocation(event.target.value);
   }
 
@@ -115,7 +116,7 @@ export class ActionsPage implements OnInit {
     try {
       const result = await this.articleService.getArticleByBarcode(barcode);
       this.scannedProduct = await firstValueFrom(result);
-      await this.articleService.saveArticle(this.selectedLocation, this.scannedProduct.id);
+      await this.articleService.saveArticle(this.scannedProduct.id);
     } catch (error) {
       console.error('Error:', error);
       await this.toastService.presentToast(

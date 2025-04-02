@@ -65,6 +65,7 @@ export class AddDeliveryComponent  implements OnInit {
   
       // Haal artikelgegevens op
       const article = await this.articleService.getSavedArticle();
+      const location = await this.articleService.getSavedLocation();
       const count = this.deliveryForm.get('count')?.value;
       const comment = this.deliveryForm.get('comment')?.value;
 
@@ -72,7 +73,7 @@ export class AddDeliveryComponent  implements OnInit {
       loading.message = 'Actie verwerken...';
   
       // API call om de telling toe te voegen
-      await this.deliveryService.addDelivery(article.itemID, article.locationID, count, comment);
+      await this.deliveryService.addDelivery(article, location, count, comment);
   
       // Success melding
       await this.toastService.presentToast(

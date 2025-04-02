@@ -6,6 +6,9 @@
       placeholder="Aantal"
     />
   </ion-item>
+  <div class="ion-padding" *ngIf="deliveryForm.get('count')?.invalid && deliveryForm.get('count')?.touched">
+    <p class="error-message">Aantal mag niet leeg zijn</p>
+  </div>
   <ion-item>
     <input type="text" placeholder="Opmerking" [formControlName]="'comment'" />
   </ion-item>

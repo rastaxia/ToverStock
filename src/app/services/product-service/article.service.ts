@@ -50,17 +50,24 @@ export class ArticleService {
   }
 
   // save article
-  async saveArticle(locationID: number, itemID: number) {
-    this.locationID = locationID;
+  async saveArticle(itemID: number) {
     this.itemID = itemID;
   }
 
+  // save location
+  async saveLocation(locationID: number) {
+    this.locationID = locationID;
+  }
+
+
+
   // get saved article
   async getSavedArticle() {
-    const article = {
-      locationID: this.locationID,
-      itemID: this.itemID,
-    };
-    return article;
+    return this.itemID;
+  }
+
+  // get saved location
+  async getSavedLocation() {
+    return this.locationID;
   }
 }

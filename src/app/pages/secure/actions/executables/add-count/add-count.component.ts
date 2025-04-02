@@ -68,11 +68,12 @@ export class AddCountComponent implements OnInit {
       const isVerified = await this.authService.verifyToken();
       if (!isVerified) {
         await loading.dismiss();
-        return; // AuthService zal de gebruiker omleiden naar login
+        return; 
       }
   
       // Haal artikelgegevens op
       const article = await this.articleService.getSavedArticle();
+      const location = await this.articleService.getSavedLocation();
       const count = this.countForm.get('count')?.value;
       const comment = this.countForm.get('comment')?.value;
   
@@ -80,7 +81,7 @@ export class AddCountComponent implements OnInit {
       loading.message = 'Actie verwerken...';
   
       // API call om de telling toe te voegen
-      await this.countService.addCount(article.itemID, article.locationID, count, comment);
+      await this.countService.addCount(article, location, count, comment);
   
       // Success melding
       await this.toastService.presentToast(
